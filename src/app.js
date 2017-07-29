@@ -1,3 +1,3 @@
-import hello from './model/game';
+import {init} from './game';
 
-hello("world");
+init();

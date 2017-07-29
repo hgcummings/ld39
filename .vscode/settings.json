@@ -1,0 +1,10 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "javascript.validate.enable": false,
+    "flow.enabled": true,
+    "flow.runOnEdit": true,
+    "flow.showStatus": true,
+    "flow.runOnAllFiles": true,
+    "flow.stopFlowOnExit": true,
+    "flow.useNPMPackagedFlow": true
+}

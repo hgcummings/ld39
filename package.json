@@ -1,0 +1,22 @@
+{
+  "name": "hgc-ld39",
+  "version": "0.0.1",
+  "description": "Placeholder project for Ludum Dare 39",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "watch": "watch \"npm run build\" src",
+    "livereload": "livereload dist",
+    "start": "concurrently --kill-others \"npm run watch\" \"npm run livereload\""
+  },
+  "author": "hgcummings",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "flow-bin": "^0.51.1",
+    "flow-remove-types": "^1.2.1",
+    "livereload": "^0.6.2",
+    "remove-flow-types-loader": "^1.0.0",
+    "watch": "^1.0.2",
+    "webpack": "^3.4.1"
+  }
+}

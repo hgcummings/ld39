@@ -9,7 +9,7 @@ export const init = () => {
 
     // $FlowFixMe
     const container: HTMLElement = document.getElementById('game');
-    const gridView = initGridView(model.grid);
+    const gridView = initGridView(model.level);
     container.appendChild(gridView.element);
 
     const hudView = initHudView();

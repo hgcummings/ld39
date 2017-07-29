@@ -7,11 +7,17 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     module: {
-        rules: [{
-            test: /\.js$/,
-            enforce: "pre",
-            use: ["./flow-loader"],
-            include: path.join(__dirname, "src")
-        }]
+        rules: [
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                use: ["./flow-loader"],
+                include: path.join(__dirname, "src")
+            },
+            {
+                test: /\.dat$/,
+                use: ["raw-loader"]
+            }
+        ]
     }
 }

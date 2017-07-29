@@ -15,6 +15,7 @@
     "flow-bin": "^0.51.1",
     "flow-remove-types": "^1.2.1",
     "livereload": "^0.6.2",
+    "raw-loader": "^0.5.1",
     "remove-flow-types-loader": "^1.0.0",
     "watch": "^1.0.2",
     "webpack": "^3.4.1"

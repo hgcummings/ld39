@@ -1,13 +1,18 @@
-import initGridModel from './grid';
+import {loadLevel} from './levels';
 import initPlayerModel from './player';
 
 export default () => {
     let previousUpdate = 0;
+    const level = loadLevel();
     const self = {
-        grid: initGridModel(),
-        player: initPlayerModel(),
+        level: level,
+        player: initPlayerModel(level.start),
         update: (gameTime: number) => {
-            self.player.update(gameTime - previousUpdate);
+            const dt = gameTime - previousUpdate;
+            self.player.update(dt);
+            level.conveyers.forEach(conveyer => {
+                conveyer.update(self.player, dt);
+            });
             previousUpdate = gameTime;
         }
     }

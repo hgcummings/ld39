@@ -1,6 +1,6 @@
 import type {Direction} from '../model/direction';
 import {type Draw, unit} from './drawing';
-import {type Sprite} from './sprites';
+import type Sprite from '../model/sprite';
 import {tile} from './fixtures';
 
 export default (grid: {width: number, height: number}) => {

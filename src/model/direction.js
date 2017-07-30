@@ -19,3 +19,7 @@ export const components = (direction: Direction) => {
     }
     return ret;
 };
+
+export const invert = (direction: Direction) => {
+    return ((((direction + 2) % 4) : any): Direction);
+}

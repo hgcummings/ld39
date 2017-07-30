@@ -2,7 +2,7 @@ import initGridView from './view/grid';
 import initHudView from './view/hud';
 import initModel from './model/game';
 import * as sprites from './view/sprites';
-import {shadow} from './view/fixtures';
+import * as fixtures from './view/fixtures';
 
 export const init = () => {
     const model = initModel();
@@ -25,13 +25,17 @@ export const init = () => {
         hudView.update(model);
 
         gridView.clear();
-        model.level.conveyors.forEach(conveyor => {
+        for (let conveyor of model.level.conveyors) {
             gridView.renderSprite(conveyor, sprites.conveyor(conveyor, gameTime));
-        });
+        }
+
+        for (let lever of model.level.levers) {
+            gridView.renderSprite(lever, fixtures.lever);
+        }
 
         gridView.renderSprite(model.player, sprites.player(model.player, gameTime));
 
-        gridView.renderSprite(model.player, shadow(model.player));
+        gridView.renderSprite(model.player, fixtures.shadow(model.player));
 
         window.requestAnimationFrame(animate);
     }

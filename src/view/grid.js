@@ -5,7 +5,7 @@ import {tile} from './fixtures';
 
 export default (grid: {width: number, height: number}) => {
     const canvas = document.createElement('canvas');
-    canvas.width = (unit * grid.width);
+    canvas.width = unit * grid.width;
     canvas.height = unit * grid.height;
     canvas.style.backgroundColor = '#CCCCCC';
 

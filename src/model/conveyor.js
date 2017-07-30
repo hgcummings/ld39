@@ -1,5 +1,11 @@
-import {type Direction, components} from './direction';
+import {type Direction, components, invert} from './direction';
 const conveyor_speed = 0.002;
+
+const updateDirection = (conveyor:Conveyor, direction:Direction) => {
+    conveyor.direction = direction;
+    const vector = components(direction);
+    conveyor.velocity = { x: vector.x * conveyor_speed, y: vector.y * conveyor_speed };
+}
 
 export default class Conveyor {
     x: number;
@@ -11,9 +17,11 @@ export default class Conveyor {
     constructor(x: number, y: number, direction: Direction) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
-        const vector = components(direction);
         this.speed = conveyor_speed;
-        this.velocity = { x: vector.x * conveyor_speed, y: vector.y * conveyor_speed };
+        updateDirection(this, direction);
+    }
+
+    reverse() {
+        updateDirection(this, invert(this.direction));
     }
 }

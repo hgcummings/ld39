@@ -10,6 +10,11 @@ export default () => {
         update: (gameTime: number) => {
             const dt = gameTime - previousUpdate;
             self.player.update(dt);
+
+            for (let lever of level.levers) {
+                lever.update(self.player);
+            }
+
             previousUpdate = gameTime;
         }
     }

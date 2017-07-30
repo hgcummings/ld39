@@ -33,8 +33,13 @@ export default (grid: {width: number, height: number}) => {
         context.restore();
     }
 
-    const renderSprite = (model:Sprite, frames:[Draw]) => {
-        render(model.x, model.y, model.direction, frames[0]);
+    const renderSprite = (model:Sprite, view:{ frames: Array<Draw>}, gameTime: number) => {
+        let frameNumber = 0;
+        if (view.frames.length > 1 && view.rate && model.speed) {
+            const frameDuration = (1 / model.speed) / view.rate;
+            frameNumber = Math.floor(gameTime / frameDuration) % view.frames.length;
+        }
+        render(model.x, model.y, model.direction, view.frames[frameNumber]);
     }
 
     return {

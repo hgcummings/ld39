@@ -10,9 +10,11 @@ export default () => {
         update: (gameTime: number) => {
             const dt = gameTime - previousUpdate;
             self.player.update(dt);
-            level.conveyers.forEach(conveyer => {
-                conveyer.update(self.player, dt);
-            });
+            for (let conveyer of level.conveyers) {
+                if (conveyer.update(self.player, dt)) {
+                    break;
+                }
+            }
             previousUpdate = gameTime;
         }
     }

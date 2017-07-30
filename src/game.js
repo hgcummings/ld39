@@ -27,20 +27,20 @@ export const init = () => {
         gridView.renderFloor();
 
         for (let conveyor of model.level.conveyors) {
-            gridView.renderSprite(conveyor, sprites.conveyor(conveyor, gameTime));
+            gridView.renderFixture(conveyor, sprites.conveyor(conveyor, gameTime));
         }
 
         for (let lever of model.level.levers) {
-            gridView.renderSprite(lever, fixtures.lever);
+            gridView.renderFixture(lever, fixtures.lever);
         }
 
         for (let duck of model.ducks) {
-            gridView.renderSprite(duck, sprites.duck());
+            gridView.renderSprite(gameTime, duck, sprites.duck());
         }
 
-        gridView.renderSprite(model.player, sprites.player(model.player));
+        gridView.renderSprite(gameTime, model.player, sprites.player(model.player));
 
-        gridView.renderSprite(model.player, fixtures.shadow(model.player));
+        gridView.renderSprite(gameTime, model.player, fixtures.shadow(model.player));
 
         gridView.renderBorder();
 

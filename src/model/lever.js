@@ -1,7 +1,7 @@
 import Conveyor from './conveyor';
 import {type Direction, components, invert} from './direction';
 import {overlap} from './geometry';
-import {type Sprite} from './sprite';
+import {type Sprite} from './objects';
 
 export default class Lever {
     x: number;

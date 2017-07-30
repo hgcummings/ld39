@@ -7,34 +7,28 @@ export default class Duck {
     y: number;
     direction: Direction;
     level: { conveyors: Array<Conveyor> };
-    movingTo: ?{ x: number, y: number, speed: number };
+    vx: number;
+    vy: number;
+    lastUpdate: number;
 
     constructor(level: { conveyors: Array<Conveyor> }, x: number, y: number, direction: Direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.level = level;
+        this.vx = this.vy = 0;
     }
 
-    update(dt: number) {
-        const movingTo = this.movingTo;
-        if (movingTo) {
-            this.x = tween(this.x, movingTo.x, dt * movingTo.speed);
-            this.y = tween(this.y, movingTo.y, dt * movingTo.speed);
-            if (this.x === movingTo.x && this.y === movingTo.y) {
-                this.movingTo = null;
-            } else {
-                return;
-            }
-        }
+    update(gameTime: number) {
+        this.lastUpdate = gameTime;
+
+        this.x += this.vx;
+        this.y += this.vy;
         for (let conveyor of this.level.conveyors) {
             if (this.x === conveyor.x && this.y === conveyor.y) {
                 const move = components(conveyor.direction);
-                this.movingTo = {
-                    x: this.x + move.x,
-                    y: this.y + move.y,
-                    speed: conveyor.speed
-                }
+                this.vx = move.x * conveyor.speed;
+                this.vy = move.y * conveyor.speed;
                 break;
             }
         }

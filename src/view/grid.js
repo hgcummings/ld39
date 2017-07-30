@@ -1,6 +1,7 @@
 import type {Direction} from '../model/direction';
 import {type Draw, unit} from './graphics/common';
-import type Sprite from '../model/sprite';
+import {type Sprite, type Fixture} from '../model/objects';
+import {tick} from '../model/game';
 import drawTile from './graphics/tile';
 import drawBorder from './graphics/border';
 
@@ -47,14 +48,28 @@ export default (grid: {width: number, height: number}) => {
         context.restore();
     }
 
-    const renderSprite = (
+    const frameduration = 1000 / 16;
+    const renderSprite = (gameTime: number,
             model:Sprite, view: { foreground?: Draw, background?: Draw, scale?: number }) => {
+        const dt = (gameTime - model.lastUpdate) / tick;
+        render(
+            model.x + model.vx * dt,
+            model.y + model.vy * dt,
+            model.direction,
+            view.foreground,
+            view.background,
+            view.scale);
+    }
+
+    const renderFixture = (
+            model:Fixture, view: { foreground?: Draw, background?: Draw, scale?: number }) => {
         render(model.x, model.y, model.direction, view.foreground, view.background, view.scale);
     }
 
     return {
         element: canvas,
         renderFloor: renderFloor,
+        renderFixture: renderFixture,
         renderSprite: renderSprite,
         renderBorder: renderBorder
     };

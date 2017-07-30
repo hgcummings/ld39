@@ -2,6 +2,7 @@ import * as drawPlayer from './graphics/player';
 import * as drawConveyor from './graphics/conveyor';
 import * as drawDuck from './graphics/duck'
 import Conveyor from '../model/conveyor';
+import {tick} from '../model/game';
 
 export const player = (model: { power: number }) => {
     return {
@@ -11,7 +12,7 @@ export const player = (model: { power: number }) => {
 };
 
 export const conveyor = (model: Conveyor, gameTime: number) => {
-    const frameDuration = (1 / model.speed) / drawConveyor.framesPerUnitDistance;
+    const frameDuration = tick / model.speed / drawConveyor.framesPerUnitDistance;
     const frameNumber = Math.floor(gameTime / frameDuration) % drawConveyor.frames.length;
     return {
         foreground: drawConveyor.frames[frameNumber]

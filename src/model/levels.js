@@ -1,7 +1,7 @@
 // $FlowFixMe
 import levelData from './levels.dat';
-import Conveyor from './conveyor';
-import Lever from './lever';
+import Conveyor from './fixtures/conveyor';
+import Lever from './fixtures/lever';
 import {type Point} from './geometry';
 import {type Direction} from './direction';
 

@@ -1,17 +1,15 @@
 import {unit} from './graphics/common';
-import drawShadow from './graphics/shadow';
 import drawLever from './graphics/lever';
+import * as drawConveyor from './graphics/conveyor';
+import Conveyor from '../model/fixtures/conveyor';
+import {tick} from '../model/game';
 
-export const shadow = (model: { power: number }) => {
-    let scale = 1;
-    if (model.power < 20) {
-        scale = Math.max(1 - Math.pow(1 - model.power / 20, 3), 1 / 16);
-    }
-
+export const conveyor = (model: Conveyor, gameTime: number) => {
+    const frameDuration = tick / model.speed / drawConveyor.framesPerUnitDistance;
+    const frameNumber = Math.floor(gameTime / frameDuration) % drawConveyor.frames.length;
     return {
-        background: drawShadow,
-        scale: scale
-    }
+        foreground: drawConveyor.frames[frameNumber]
+    };
 }
 
 export const lever = {

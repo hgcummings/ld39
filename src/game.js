@@ -27,7 +27,7 @@ export const init = () => {
         gridView.renderFloor();
 
         for (let conveyor of model.level.conveyors) {
-            gridView.renderFixture(conveyor, sprites.conveyor(conveyor, gameTime));
+            gridView.renderFixture(conveyor, fixtures.conveyor(conveyor, gameTime));
         }
 
         for (let lever of model.level.levers) {
@@ -40,7 +40,7 @@ export const init = () => {
 
         gridView.renderSprite(gameTime, model.player, sprites.player(model.player));
 
-        gridView.renderSprite(gameTime, model.player, fixtures.shadow(model.player));
+        gridView.renderSprite(gameTime, model.player, sprites.shadow(model.player));
 
         gridView.renderBorder();
 

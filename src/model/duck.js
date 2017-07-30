@@ -1,6 +1,6 @@
 import {type Direction, components} from './direction';
 import {tween, overlap} from './geometry';
-import Conveyor from './conveyor';
+import Conveyor from './fixtures/conveyor';
 
 export default class Duck {
     x: number;

@@ -1,7 +1,7 @@
 import {getDirection} from '../input';
 import {type Direction, components} from './direction';
 import {overlap, constrain} from './geometry';
-import Conveyor from './conveyor';
+import Conveyor from './fixtures/conveyor';
 import {type Sprite} from './objects';
 import {tickFrequency} from './game';
 

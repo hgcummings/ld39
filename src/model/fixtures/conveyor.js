@@ -1,4 +1,4 @@
-import {type Direction, components, invert} from './direction';
+import {type Direction, components, invert} from '../direction';
 const conveyor_speed = 0.25;
 
 const updateDirection = (conveyor:Conveyor, direction:Direction) => {

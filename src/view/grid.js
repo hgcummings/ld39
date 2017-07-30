@@ -1,6 +1,7 @@
 import type {Direction} from '../model/direction';
 import {type Draw, unit} from './drawing';
 import {type Sprite} from './sprites';
+import {tile} from './fixtures';
 
 export default (grid: {width: number, height: number}) => {
     const canvas = document.createElement('canvas');
@@ -11,7 +12,11 @@ export default (grid: {width: number, height: number}) => {
     const context = canvas.getContext('2d');
 
     const clear = () => {
-        context.clearRect(0,0, canvas.width, canvas.height);
+        for (let i = 0; i < grid.width; ++i) {
+            for(let j = 0; j < grid.width; ++j) {
+                render(i, j, null, null, tile);
+            }
+        }
     };
 
     const render = (x: number, y: number, direction: ?Direction,
@@ -45,6 +50,7 @@ export default (grid: {width: number, height: number}) => {
     return {
         element: canvas,
         clear: clear,
+        render: render,
         renderSprite: renderSprite
     };
 }

@@ -1,8 +1,8 @@
 import initGridView from './view/grid';
-import initSprites from './view/sprites';
 import initHudView from './view/hud';
 import initModel from './model/game';
 import * as sprites from './view/sprites';
+import {shadow} from './view/fixtures';
 
 export const init = () => {
     const model = initModel();
@@ -30,6 +30,8 @@ export const init = () => {
         });
 
         gridView.renderSprite(model.player, sprites.player, gameTime);
+
+        gridView.render(model.player.x, model.player.y, null, null, shadow);
 
         window.requestAnimationFrame(animate);
     }

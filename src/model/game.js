@@ -6,7 +6,7 @@ export const tick = 125;
 export const tickFrequency = 0.008;
 
 export default () => {
-    const level = loadLevel();
+    const level = loadLevel(0);
     let lastUpdate = 0;
     const self = {
         level: level,
@@ -18,7 +18,7 @@ export default () => {
             if (Math.floor(gameTime / tick) > Math.floor(lastUpdate / tick)) {
                 const nextTick = lastUpdate + tick - (lastUpdate % tick);
                 for (let time = nextTick; time <= gameTime; time += tick) {
-                    for (let lever of level.levers) {
+                    for (let lever of level.fixtures.levers) {
                         lever.update(self.player);
                     }
 

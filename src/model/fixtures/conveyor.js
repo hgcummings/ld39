@@ -1,27 +1,25 @@
 import {type Direction, components, invert} from '../direction';
+import {Fixture} from '../objects';
+
 const conveyor_speed = 0.25;
 
-const updateDirection = (conveyor:Conveyor, direction:Direction) => {
-    conveyor.direction = direction;
-    const vector = components(direction);
+const updateVelocity = (conveyor:Conveyor) => {
+    const vector = components(conveyor.direction);
     conveyor.velocity = { x: vector.x * conveyor_speed, y: vector.y * conveyor_speed };
 }
 
-export default class Conveyor {
-    x: number;
-    y: number;
-    direction: Direction;
+export default class Conveyor extends Fixture {
     speed: number;
     velocity: {x: number, y: number};
 
     constructor(x: number, y: number, direction: Direction) {
-        this.x = x;
-        this.y = y;
+        super(x, y, direction);
         this.speed = conveyor_speed;
-        updateDirection(this, direction);
+        updateVelocity(this);
     }
 
     reverse() {
-        updateDirection(this, invert(this.direction));
+        this.direction = invert(this.direction);
+        updateVelocity(this);
     }
 }

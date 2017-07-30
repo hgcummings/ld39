@@ -2,10 +2,10 @@ import {getDirection} from '../input';
 import {type Direction, components} from './direction';
 import {overlap, constrain} from './geometry';
 import Conveyor from './fixtures/conveyor';
-import {type Sprite} from './objects';
+import {type Fixture} from './objects';
 import {tickFrequency} from './game';
 
-export default (level: {start: Sprite, conveyors: Array<Conveyor>, width: number, height: number}) => {
+export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor> }, width: number, height: number}) => {
     const move_speed = 0.375;
     const move_power = 0.625;
     const idle_power = 0.0625;
@@ -38,7 +38,7 @@ export default (level: {start: Sprite, conveyors: Array<Conveyor>, width: number
                 self.active = false;
             }
 
-            for (let conveyor of level.conveyors) {
+            for (let conveyor of level.fixtures.conveyors) {
                 if (overlap(self, conveyor)) {
                     self.vx += conveyor.velocity.x * dt * tickFrequency;
                     self.vy += conveyor.velocity.y * dt * tickFrequency;

@@ -2,17 +2,13 @@ import Conveyor from './conveyor';
 import {type Direction, components, invert} from '../direction';
 import {overlap} from '../geometry';
 import {type Sprite} from '../objects';
+import {Fixture} from '../objects';
 
-export default class Lever {
-    x: number;
-    y: number;
-    direction: Direction;
+export default class Lever extends Fixture {
     conveyors: Array<Conveyor>;
 
     constructor(x: number, y: number, direction: Direction, conveyors: Array<Conveyor>) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
+        super(x, y, direction);
         this.conveyors = conveyors;
     }
 

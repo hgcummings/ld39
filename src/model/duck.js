@@ -6,12 +6,12 @@ export default class Duck {
     x: number;
     y: number;
     direction: Direction;
-    level: { conveyors: Array<Conveyor> };
+    level: { fixtures: { conveyors: Array<Conveyor> } };
     vx: number;
     vy: number;
     lastUpdate: number;
 
-    constructor(level: { conveyors: Array<Conveyor> }, x: number, y: number, direction: Direction) {
+    constructor(level: { fixtures: { conveyors: Array<Conveyor> } }, x: number, y: number, direction: Direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -24,7 +24,7 @@ export default class Duck {
 
         this.x += this.vx;
         this.y += this.vy;
-        for (let conveyor of this.level.conveyors) {
+        for (let conveyor of this.level.fixtures.conveyors) {
             if (this.x === conveyor.x && this.y === conveyor.y) {
                 const move = components(conveyor.direction);
                 this.vx = move.x * conveyor.speed;

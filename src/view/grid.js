@@ -1,7 +1,7 @@
 import type {Direction} from '../model/direction';
-import {type Draw, unit} from './drawing';
+import {type Draw, unit} from './graphics/common';
 import type Sprite from '../model/sprite';
-import {tile} from './fixtures';
+import drawTile from './graphics/tile';
 
 export default (grid: {width: number, height: number}) => {
     const canvas = document.createElement('canvas');
@@ -14,7 +14,7 @@ export default (grid: {width: number, height: number}) => {
     const clear = () => {
         for (let i = 0; i < grid.width; ++i) {
             for(let j = 0; j < grid.width; ++j) {
-                render(i, j, null, null, tile);
+                render(i, j, null, null, drawTile);
             }
         }
     };

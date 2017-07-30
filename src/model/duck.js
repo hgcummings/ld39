@@ -1,5 +1,5 @@
 import {type Direction, components} from './direction';
-import {tween, overlap} from './geometry';
+import {overlap} from './geometry';
 import Conveyor from './fixtures/conveyor';
 
 export default class Duck {

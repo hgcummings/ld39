@@ -13,8 +13,14 @@ export const loadLevel = () => {
                 case 'x':
                     start = { x:i, y: j };
                     break;
+                case '^':
+                    conveyers.push(new Conveyer(i, j, 0));
+                    break;
                 case '>':
                     conveyers.push(new Conveyer(i, j, 1));
+                    break;
+                case 'v':
+                    conveyers.push(new Conveyer(i, j, 2));
                     break;
                 case '<':
                     conveyers.push(new Conveyer(i, j, 3));

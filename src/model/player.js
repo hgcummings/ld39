@@ -1,13 +1,14 @@
 import {getDirection} from '../input';
 import {type Direction, components} from './direction';
-import {overlap} from './geometry';
+import {overlap, constrain} from './geometry';
 import Conveyor from './conveyor';
 import {type Sprite} from './sprite';
 
-export default (level: {start: Sprite, conveyors: Array<Conveyor>}) => {
+export default (level: {start: Sprite, conveyors: Array<Conveyor>, width: number, height: number}) => {
     const move_speed = 0.003;
     const move_power = 0.005;
     const idle_power = 0.0005;
+    const levelBoundary = { x: level.width - 1, y: level.height - 1 };
 
     const self = {
         x: level.start.x,
@@ -36,6 +37,8 @@ export default (level: {start: Sprite, conveyors: Array<Conveyor>}) => {
                     break;
                 }
             }
+
+            constrain(self, levelBoundary);
         }
     };
 

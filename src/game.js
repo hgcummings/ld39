@@ -24,7 +24,8 @@ export const init = () => {
 
         hudView.update(model);
 
-        gridView.clear();
+        gridView.renderFloor();
+
         for (let conveyor of model.level.conveyors) {
             gridView.renderSprite(conveyor, sprites.conveyor(conveyor, gameTime));
         }
@@ -33,9 +34,11 @@ export const init = () => {
             gridView.renderSprite(lever, fixtures.lever);
         }
 
-        gridView.renderSprite(model.player, sprites.player(model.player, gameTime));
+        gridView.renderSprite(model.player, sprites.player(model.player));
 
         gridView.renderSprite(model.player, fixtures.shadow(model.player));
+
+        gridView.renderBorder();
 
         window.requestAnimationFrame(animate);
     }

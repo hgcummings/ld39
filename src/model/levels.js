@@ -1,10 +1,10 @@
 // $FlowFixMe
 import levelData from './levels.dat';
-import Conveyer from './conveyer';
+import Conveyor from './conveyor';
 import {type Point} from './geometry';
 
 export const loadLevel = () => {
-    const conveyers = [];
+    const conveyors = [];
     let start:Point;
     const rows = levelData.split('\n');
     for (let j = 0; j < rows.length; ++j) {
@@ -14,16 +14,16 @@ export const loadLevel = () => {
                     start = { x:i, y: j };
                     break;
                 case '^':
-                    conveyers.push(new Conveyer(i, j, 0));
+                    conveyors.push(new Conveyor(i, j, 0));
                     break;
                 case '>':
-                    conveyers.push(new Conveyer(i, j, 1));
+                    conveyors.push(new Conveyor(i, j, 1));
                     break;
                 case 'v':
-                    conveyers.push(new Conveyer(i, j, 2));
+                    conveyors.push(new Conveyor(i, j, 2));
                     break;
                 case '<':
-                    conveyers.push(new Conveyer(i, j, 3));
+                    conveyors.push(new Conveyor(i, j, 3));
                     break;
                 default:
                     break;
@@ -33,7 +33,7 @@ export const loadLevel = () => {
     
     return {
         start: start,
-        conveyers: conveyers,
+        conveyors: conveyors,
         width: rows[0].length,
         height: rows.length
     }

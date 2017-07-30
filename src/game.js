@@ -25,13 +25,13 @@ export const init = () => {
         hudView.update(model);
 
         gridView.clear();
-        model.level.conveyers.forEach(conveyer => {
-            gridView.renderSprite(conveyer, sprites.conveyer, gameTime);
+        model.level.conveyors.forEach(conveyor => {
+            gridView.renderSprite(conveyor, sprites.conveyor(conveyor, gameTime));
         });
 
-        gridView.renderSprite(model.player, sprites.player, gameTime);
+        gridView.renderSprite(model.player, sprites.player(model.player, gameTime));
 
-        gridView.render(model.player.x, model.player.y, null, null, shadow);
+        gridView.renderSprite(model.player, shadow(model.player));
 
         window.requestAnimationFrame(animate);
     }

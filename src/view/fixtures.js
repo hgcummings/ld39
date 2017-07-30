@@ -19,18 +19,32 @@ export const tile = preRender((ctx: CanvasRenderingContext2D) => {
     }
 });
 
+const shadowLimit = unit * 6;
+const preRenderSize = unit * 16;
 const preRenderedShadow = document.createElement('canvas');
-preRenderedShadow.width = unit * 100;
-preRenderedShadow.height = unit * 100;
+preRenderedShadow.width = preRenderedShadow.height = preRenderSize;
 const ctx = preRenderedShadow.getContext('2d');
-const shadowGradient = ctx.createRadialGradient(preRenderedShadow.width / 2, preRenderedShadow.height / 2, 0, preRenderedShadow.width / 2, preRenderedShadow.height / 2, unit * 6);
-shadowGradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-shadowGradient.addColorStop(0.25, 'rgba(0, 0, 0, 0)');
-shadowGradient.addColorStop(0.5, 'rgba(0, 0, 0, 0.25)');
-shadowGradient.addColorStop(1, 'rgba(0, 0, 0, 1)');
+const shadowGradient = ctx.createRadialGradient(
+    preRenderSize / 2, preRenderSize / 2, 0, preRenderSize / 2, preRenderSize / 2, shadowLimit);
+shadowGradient.addColorStop(0, 'rgba(6, 6, 6, 0)');
+shadowGradient.addColorStop(0.25, 'rgba(6, 6, 6, 0)');
+shadowGradient.addColorStop(0.5, 'rgba(6, 6, 6, 0.25)');
+shadowGradient.addColorStop(1, 'rgba(6, 6, 6, 1)');
 ctx.fillStyle = shadowGradient;
-ctx.fillRect(0, 0, preRenderedShadow.width, preRenderedShadow.height);
+ctx.fillRect(0, 0, preRenderSize, preRenderSize);
 
-export const shadow = (ctx: CanvasRenderingContext2D) => {
+const shadowFrame = (ctx: CanvasRenderingContext2D) => {
+    ctx.fillStyle = 'rgb(6, 6, 6)';
+    ctx.fillRect(-unit * 512, -unit * 512, unit * 512 - shadowLimit, unit * 1024);
+    ctx.fillRect(-unit * 512, -unit * 512, unit * 1024, unit * 512 - shadowLimit);
+    ctx.fillRect(shadowLimit, -unit * 512, unit * 512 - shadowLimit, unit * 1024);
+    ctx.fillRect(-unit * 512, shadowLimit, unit * 1024, unit * 512 - shadowLimit);
     ctx.drawImage(preRenderedShadow, -preRenderedShadow.width / 2, -preRenderedShadow.height / 2);
+};
+
+export const shadow = (model: { power: number }) => {
+    return {
+        background: shadowFrame,
+        scale: Math.max(1 - Math.pow(1 - model.power / 100, 3), 1 / 16)
+    }
 }

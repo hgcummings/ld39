@@ -1,15 +1,16 @@
 import {getDirection} from '../input';
 import {type Direction, components} from './direction';
-import {type Point} from './geometry';
+import {type Point, overlap} from './geometry';
+import {Conveyor} from './conveyor';
 
-export default (start:Point) => {
+export default (level: {start:Point, conveyors:Array<Conveyor>}) => {
     const move_speed = 0.003;
     const move_power = 0.005;
     const idle_power = 0.0005;
 
     const self = {
-        x: start.x,
-        y: start.y,
+        x: level.start.x,
+        y: level.start.y,
         direction: 0,
         power: 100,
         active: false,
@@ -25,6 +26,14 @@ export default (start:Point) => {
             } else {
                 self.power -= idle_power * dt;
                 self.active = false;
+            }
+
+            for (let conveyor of level.conveyors) {
+                if (overlap(self, conveyor)) {
+                    self.x += conveyor.velocity.x * dt;
+                    self.y += conveyor.velocity.y * dt;
+                    break;
+                }
             }
         }
     };

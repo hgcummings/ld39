@@ -6,15 +6,10 @@ export default () => {
     const level = loadLevel();
     const self = {
         level: level,
-        player: initPlayerModel(level.start),
+        player: initPlayerModel(level),
         update: (gameTime: number) => {
             const dt = gameTime - previousUpdate;
             self.player.update(dt);
-            for (let conveyer of level.conveyers) {
-                if (conveyer.update(self.player, dt)) {
-                    break;
-                }
-            }
             previousUpdate = gameTime;
         }
     }

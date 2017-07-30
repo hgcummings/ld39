@@ -3,34 +3,43 @@ import {type Direction} from '../model/direction';
 
 export type Sprite = { x: number, y: number, direction: Direction }
 
-export const player = {
-    frames: [
-        preRender((ctx: CanvasRenderingContext2D) => {
-            const bodyGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, unit /3);
-            bodyGradient.addColorStop(0, '#eee');
-            bodyGradient.addColorStop(0.25, '#eee');
-            bodyGradient.addColorStop(0.5, '#ddd');
-            bodyGradient.addColorStop(0.75, '#ccc');
-            bodyGradient.addColorStop(1, '#bbb');
-            ctx.fillStyle = bodyGradient;
-            ctx.strokeStyle = '#333';
-            ctx.lineWidth = unit / 24;
-            drawCircle(ctx, 0, 0, unit / 3);
-            ctx.stroke();
-            ctx.fill();
+const playerBackground = preRender((ctx: CanvasRenderingContext2D) => {
+    const bodyGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, unit /3);
+    bodyGradient.addColorStop(0, '#eee');
+    bodyGradient.addColorStop(0.25, '#eee');
+    bodyGradient.addColorStop(0.5, '#ddd');
+    bodyGradient.addColorStop(0.75, '#ccc');
+    bodyGradient.addColorStop(1, '#bbb');
+    ctx.fillStyle = bodyGradient;
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = unit / 24;
+    drawCircle(ctx, 0, 0, unit / 3);
+    ctx.stroke();
+    ctx.fill();
+});
 
-            const visorGradient = ctx.createRadialGradient(0, -unit / 6, 0, 0, -unit / 6, unit / 3);
-            visorGradient.addColorStop(0, '#4aaddc');
-            visorGradient.addColorStop(0.25, '#4aaddc');
-            visorGradient.addColorStop(1, '#000');
-            ctx.beginPath();
-            ctx.lineWidth = unit / 12;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = visorGradient;
-            ctx.arc(0, 0, unit * 1/4, -Math.PI * 5/6, -Math.PI *  1/6, false);
-            ctx.stroke();
-        })
-    ]
+const drawVisor = (colour) => 
+    preRender((ctx: CanvasRenderingContext2D) => {
+        const visorGradient = ctx.createRadialGradient(0, -unit / 6, 0, 0, -unit / 6, unit / 3);
+        visorGradient.addColorStop(0, colour);
+        visorGradient.addColorStop(0.25, colour);
+        visorGradient.addColorStop(1, '#000');
+        ctx.beginPath();
+        ctx.lineWidth = unit / 12;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = visorGradient;
+        ctx.arc(0, 0, unit * 1/4, -Math.PI * 5/6, -Math.PI *  1/6, false);
+        ctx.stroke();
+    });
+
+const playerForeground = drawVisor('#4aaddc');
+const playerForegroundLowPower = drawVisor('#800');
+
+export const player = (model, gameTime) => {
+    return {
+        background: playerBackground,
+        foreground: model.power < 20 ? playerForegroundLowPower : playerForeground
+    }
 };
 
 const arrow = document.createElement('canvas');
@@ -48,10 +57,10 @@ ctx.lineTo(0, unit * 3/8);
 ctx.lineTo(0, unit / 8);
 ctx.fill();
 
-const arrowFrames = [];
+const conveyorFrames = [];
 
 for (let i = 0; i < 8; ++i) {
-    arrowFrames.push(
+    conveyorFrames.push(
         preRender((ctx: CanvasRenderingContext2D) => {
             ctx.fillStyle = '#333';
             ctx.fillRect(-unit /2, -unit/2, unit, unit);
@@ -78,7 +87,10 @@ for (let i = 0; i < 8; ++i) {
     );
 }
 
-export const conveyer = {
-    rate: 16,
-    frames: arrowFrames
+export const conveyor = (model, gameTime) => {
+    const frameDuration = (1 / model.speed) / 16;
+    const frameNumber = Math.floor(gameTime / frameDuration) % conveyorFrames.length;
+    return {
+        foreground: conveyorFrames[frameNumber]
+    };
 }

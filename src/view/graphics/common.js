@@ -8,17 +8,17 @@ export const drawCircle = (context:CanvasRenderingContext2D, x: number, y: numbe
     context.arc(x, y, radius, 0, Math.PI * 2, false);
 };
 
-export const preRender = (detail: Draw) => {
-    const cell = preRenderCell(detail);
+export const preRender = (detail: Draw, width: ?number, height: ?number) => {
+    const cell = preRenderCell(detail, width, height);
     return (ctx: CanvasRenderingContext2D) => {
-        ctx.drawImage(cell, -unit / 2, -unit / 2);
+        ctx.drawImage(cell, -cell.width / 2, -cell.height / 2);
     };
 }
 
-export const preRenderCell = (detail: Draw) => {
+export const preRenderCell = (detail: Draw, width: ?number, height: ?number) => {
     const cell = document.createElement('canvas');
-    cell.width = unit;
-    cell.height = unit;
+    cell.width = width || unit;
+    cell.height = height || unit;
     const ctx = cell.getContext('2d');
     ctx.translate(unit / 2, unit / 2);
     detail(ctx);

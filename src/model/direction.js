@@ -23,3 +23,11 @@ export const components = (direction: Direction) => {
 export const invert = (direction: Direction) => {
     return ((((direction + 2) % 4) : any): Direction);
 }
+
+export const random = () => {
+    return ((Math.floor(Math.random() * 4): any): Direction);
+}
+
+export const increment = (direction: Direction) => {
+    return ((((direction + 1) % 4) : any): Direction);
+}

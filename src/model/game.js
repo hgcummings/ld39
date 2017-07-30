@@ -18,8 +18,18 @@ export default () => {
             if (Math.floor(gameTime / tick) > Math.floor(lastUpdate / tick)) {
                 const nextTick = lastUpdate + tick - (lastUpdate % tick);
                 for (let time = nextTick; time <= gameTime; time += tick) {
+                    const tickNumber = time / tick;
+
                     for (let lever of level.fixtures.levers) {
                         lever.update(self.player);
+                    }
+
+                    for (let supply of level.fixtures.supplies) {
+                        supply.update(self, tickNumber);
+                    }
+
+                    for (let mould of level.fixtures.moulds) {
+                        mould.update(self, tickNumber);
                     }
 
                     for (let duck of self.ducks) {

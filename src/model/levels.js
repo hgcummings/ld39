@@ -4,7 +4,7 @@ import Checker from './fixtures/checker';
 import Chute from './fixtures/chute';
 import Conveyor from './fixtures/conveyor';
 import Lever from './fixtures/lever';
-import Mould from './fixtures/mould';
+import Mould, {DummyMould} from './fixtures/mould';
 import Pipe from './fixtures/pipe';
 import Piston from './fixtures/piston';
 import Spray from './fixtures/spray';
@@ -63,6 +63,8 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
                 fixtures.levers.push(new Lever(i, j, a === '/' ? 1 : 3, numberedConveyors[index]));
             } else if (a === 'M') {
                 fixtures.moulds.push(new Mould(i, j, directionOf(b)));
+            } else if (a === 'm') {
+                fixtures.moulds.push(new DummyMould(i, j, directionOf(b)));
             } else if (a === 'u') {
                 fixtures.pipes.push(new Pipe(i, j, 2));
             } else if (a === 'T') {

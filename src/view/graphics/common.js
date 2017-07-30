@@ -9,14 +9,18 @@ export const drawCircle = (context:CanvasRenderingContext2D, x: number, y: numbe
 };
 
 export const preRender = (detail: Draw) => {
-    var cell = document.createElement('canvas');
-    cell.width = unit;
-    cell.height = unit;
-    var ctx = cell.getContext('2d');
-    ctx.translate(unit / 2, unit / 2);
-    detail(ctx);
+    const cell = preRenderCell(detail);
     return (ctx: CanvasRenderingContext2D) => {
         ctx.drawImage(cell, -unit / 2, -unit / 2);
     };
 }
 
+export const preRenderCell = (detail: Draw) => {
+    const cell = document.createElement('canvas');
+    cell.width = unit;
+    cell.height = unit;
+    const ctx = cell.getContext('2d');
+    ctx.translate(unit / 2, unit / 2);
+    detail(ctx);
+    return cell;
+}

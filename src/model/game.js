@@ -11,7 +11,7 @@ export default () => {
     const self = {
         level: level,
         player: initPlayerModel(level),
-        ducks: [new Duck(level, 1, 3, 1)],
+        ducks: [],
         update: (gameTime: number) => {
             self.player.update(gameTime);
 

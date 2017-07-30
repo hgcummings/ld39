@@ -1,5 +1,6 @@
 import {unit} from './graphics/common';
 import drawLever from './graphics/lever';
+import {drawPipe, drawSupply} from './graphics/pipes';
 import * as drawConveyor from './graphics/conveyor';
 import Conveyor from '../model/fixtures/conveyor';
 import {tick} from '../model/game';
@@ -12,6 +13,8 @@ export const conveyor = (model: Conveyor, gameTime: number) => {
     };
 }
 
-export const lever = {
-    foreground: drawLever
-};
+export const lever = { foreground: drawLever };
+
+export const pipe = { foreground: drawPipe };
+
+export const supply = { foreground: drawSupply };

@@ -72,7 +72,8 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
             } else if (a === 'w') {
                 fixtures.stencillers.push(new Stenciller(i, j, directionOf(b)));
             } else if (a === 'U') {
-                fixtures.supplies.push(new Supply(i, j, 2));
+                fixtures.pipes.push(new Pipe(i, j, 2));
+                fixtures.supplies.push(new Supply(i, j + 1, 2));
             } else if (a === '@') {
                 fixtures.turntables.push(new Turntable(i, j, b === 'c' ? 1 : 3));
             }

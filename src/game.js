@@ -35,10 +35,18 @@ export const init = () => {
         }
 
         for (let duck of model.ducks) {
-            gridView.renderSprite(gameTime, duck, sprites.duck());
+            gridView.renderSprite(gameTime, duck, sprites.duck(duck));
         }
 
         gridView.renderSprite(gameTime, model.player, sprites.player(model.player));
+
+        for (let pipe of model.level.fixtures.pipes) {
+            gridView.renderFixture(pipe, fixtures.pipe);
+        }
+
+        for (let supply of model.level.fixtures.supplies) {
+            gridView.renderFixture(supply, fixtures.supply);
+        }
 
         if (model.level.meta.shadow) {
             gridView.renderSprite(gameTime, model.player, sprites.shadow(model.player));

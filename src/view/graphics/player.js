@@ -1,17 +1,12 @@
 import {unit, drawCircle, preRender} from './common';
 
 export const background = preRender((ctx: CanvasRenderingContext2D) => {
-    const bodyGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, unit /3);
+    const bodyGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, unit * 3 / 8);
     bodyGradient.addColorStop(0, '#eee');
-    bodyGradient.addColorStop(0.25, '#eee');
     bodyGradient.addColorStop(0.5, '#ddd');
-    bodyGradient.addColorStop(0.75, '#ccc');
     bodyGradient.addColorStop(1, '#bbb');
     ctx.fillStyle = bodyGradient;
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = unit / 24;
-    drawCircle(ctx, 0, 0, unit / 3);
-    ctx.stroke();
+    drawCircle(ctx, 0, 0, unit * 3 / 8);
     ctx.fill();
 });
 

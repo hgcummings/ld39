@@ -34,6 +34,10 @@ export const init = () => {
             gridView.renderSprite(lever, fixtures.lever);
         }
 
+        for (let duck of model.ducks) {
+            gridView.renderSprite(duck, sprites.duck());
+        }
+
         gridView.renderSprite(model.player, sprites.player(model.player));
 
         gridView.renderSprite(model.player, fixtures.shadow(model.player));

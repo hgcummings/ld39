@@ -1,5 +1,6 @@
 import * as drawPlayer from './graphics/player';
 import * as drawConveyor from './graphics/conveyor';
+import * as drawDuck from './graphics/duck'
 import Conveyor from '../model/conveyor';
 
 export const player = (model: { power: number }) => {
@@ -15,4 +16,10 @@ export const conveyor = (model: Conveyor, gameTime: number) => {
     return {
         foreground: drawConveyor.frames[frameNumber]
     };
+}
+
+export const duck = () => {
+    return {
+        foreground: drawDuck.foreground
+    }
 }

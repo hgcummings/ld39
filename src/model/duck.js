@@ -30,6 +30,12 @@ export default class Duck {
 
         this.x += this.vx;
         this.y += this.vy;
+
+        if (this.x === Math.floor(this.x) && this.y === Math.floor(this.y)) {
+            this.vx = 0;
+            this.vy = 0;
+        }
+
         for (let conveyor of this.level.fixtures.conveyors) {
             if (this.x === conveyor.x && this.y === conveyor.y) {
                 const move = components(conveyor.direction);

@@ -1,15 +1,14 @@
 import ActiveFixture from './activeFixture';
-import {type Direction, components, random as randomDirection, increment} from '../direction';
+import {type Direction, components, increment} from '../direction';
 import Duck from '../duck';
 
 const defaultPeriod = 24;
-const defaultOffset = 13;
 
 export default class Mould extends ActiveFixture {
     target: { x: number, y: number };
 
-    constructor(x: number, y: number, direction: Direction) {
-        super(x, y, direction, defaultPeriod, defaultOffset);
+    constructor(x: number, y: number, direction: Direction, offset: number) {
+        super(x, y, direction, defaultPeriod, offset);
         const targetOffset = components(this.direction);
         this.target = { x: this.x + targetOffset.x, y: this.y + targetOffset.y };
     }
@@ -28,8 +27,8 @@ export default class Mould extends ActiveFixture {
 };
 
 export class DummyMould extends ActiveFixture {
-    constructor(x: number, y: number, direction: Direction) {
-        super(x, y, direction, defaultPeriod, defaultOffset);
+    constructor(x: number, y: number, direction: Direction, offset: number) {
+        super(x, y, direction, defaultPeriod, offset);
     }
 
     update(model: { level: any, ducks: Array<Duck> }, tickNumber: number) {

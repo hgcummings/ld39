@@ -32,6 +32,18 @@ export default () => {
                         mould.update(self, tickNumber);
                     }
 
+                    for (let spray of level.fixtures.sprays) {
+                        spray.update(self, tickNumber);
+                    }
+
+                    for (let stenciller of level.fixtures.stencillers) {
+                        stenciller.update(self, tickNumber);
+                    }
+
+                    for (let piston of level.fixtures.pistons) {
+                        piston.update(self, tickNumber);
+                    }
+
                     for (let duck of self.ducks) {
                         duck.update(gameTime);
                     }

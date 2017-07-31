@@ -40,13 +40,14 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
     let start:Fixture;
 
     for (let j = 0; j < rows.length; ++j) {
-        for (let i = 0; i < rows[j].length; ++i) {
-            const [a, b] = [rows[j][i*2], rows[j][i*2 +1]];
+        const cells = rows[j].split('|').map(text => text.trim());
+        for (let i = 0; i < cells.length; ++i) {
+            const [[a, b], c] = cells[i].split(',');
 
             if (a === 'x') {
                 start = new Fixture(i, j, directionOf(b));
             } else if (a === 'Q') {
-                fixtures.checkers.push(new Checker(i, j, directionOf(b)));
+                fixtures.checkers.push(new Checker(i, j, directionOf(b), c));
             } else if (a === 'X') {
                 fixtures.chutes.push(new Chute(i, j, directionOf(b)));
             } else if (a === '#' || !isNaN(parseInt(a, 10))) {
@@ -62,20 +63,20 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
                 numberedConveyors[index] = numberedConveyors[index] || [];
                 fixtures.levers.push(new Lever(i, j, a === '/' ? 1 : 3, numberedConveyors[index]));
             } else if (a === 'M') {
-                fixtures.moulds.push(new Mould(i, j, directionOf(b)));
+                fixtures.moulds.push(new Mould(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'm') {
-                fixtures.moulds.push(new DummyMould(i, j, directionOf(b)));
+                fixtures.moulds.push(new DummyMould(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'u') {
                 fixtures.pipes.push(new Pipe(i, j, 2));
             } else if (a === 'T') {
-                fixtures.pistons.push(new Piston(i, j, directionOf(b)));
-            } else if (a === 'W') {
-                fixtures.sprays.push(new Spray(i, j, directionOf(b)));
-            } else if (a === 'w') {
-                fixtures.stencillers.push(new Stenciller(i, j, directionOf(b)));
+                fixtures.pistons.push(new Piston(i, j, directionOf(b), parseInt(c, 10)));
+            } else if (a === 'S') {
+                fixtures.sprays.push(new Spray(i, j, directionOf(b), parseInt(c, 10)));
+            } else if (a === 's') {
+                fixtures.stencillers.push(new Stenciller(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'U') {
                 fixtures.pipes.push(new Pipe(i, j, 2));
-                fixtures.supplies.push(new Supply(i, j + 1, 2));
+                fixtures.supplies.push(new Supply(i, j + 1, 2, parseInt(c, 10)));
             } else if (a === '@') {
                 fixtures.turntables.push(new Turntable(i, j, b === 'c' ? 1 : 3));
             }
@@ -86,7 +87,7 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
         start: start,
         meta: meta,
         fixtures: fixtures,
-        width: rows[0].length / 2,
+        width: rows[0].split('|').length,
         height: rows.length
     }
 });

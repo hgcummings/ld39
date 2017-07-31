@@ -1,6 +1,7 @@
 import {unit} from './graphics/common';
 import drawLever from './graphics/lever';
 import drawChute from './graphics/chute';
+import drawTurntable from './graphics/turntable';
 import {drawPipe, drawSupplyActive, drawSupplyInactive} from './graphics/pipes';
 import * as drawConveyor from './graphics/conveyor';
 import Conveyor from '../model/fixtures/conveyor';
@@ -19,6 +20,20 @@ export const conveyor = (model: Conveyor, gameTime: number) => {
     return {
         foreground: drawConveyor.frames[frameNumber]
     };
+}
+
+export const turntable = (model: ActiveFixture, gameTime: number) => {
+    const relativeTick = Math.round((gameTime * 2 / tick) - (model.offset * 2)) % (model.period * 2);
+    switch (relativeTick) {
+        case ((model.period * 2) - 1):
+            return { background: drawTurntable[1] }
+        case 0:
+            return { background: drawTurntable[2] }
+        case 1:
+            return { background: drawTurntable[3] }
+        default:
+            return { background: drawTurntable[0] }
+    }
 }
 
 export const lever = { foreground: drawLever };
@@ -46,7 +61,7 @@ export const mould = (model:ActiveFixture, gameTime:number) => {
 
 export const spray = (model:ActiveFixture, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, -1);
-    if (distanceToActive <= 6) {
+    if (distanceToActive <= 2) {
         return { foreground: drawSpray.active };
     } else {
         return { foreground: drawSpray.inactive };

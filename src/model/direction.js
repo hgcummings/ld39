@@ -28,6 +28,10 @@ export const increment = (direction: Direction) => {
     return ((((direction + 1) % 4) : any): Direction);
 }
 
+export const combine = (a: Direction, b: Direction) => {
+    return ((((a + b) % 4): any) : Direction);
+}
+
 export const relative = (source: Direction, target: Direction) => {
     return ((((2 + source - target) % 4): any): Direction);
 }

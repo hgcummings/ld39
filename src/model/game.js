@@ -62,6 +62,10 @@ export default () => {
                         piston.update(self, tickNumber);
                     }
 
+                    for (let turntable of level.fixtures.turntables) {
+                        turntable.update(self, tickNumber);
+                    }
+
                     for (let checker of level.fixtures.checkers) {
                         checker.update(self, tickNumber);
                     }

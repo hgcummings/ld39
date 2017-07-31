@@ -30,6 +30,10 @@ export const init = () => {
             gridView.renderFixture(conveyor, fixtures.conveyor(conveyor, gameTime));
         }
 
+        for (let turntable of model.level.fixtures.turntables) {
+            gridView.renderFixture(turntable, fixtures.turntable(turntable, gameTime));
+        }
+
         for (let chute of model.level.fixtures.chutes) {
             gridView.renderFixture(chute, fixtures.chute);
         }

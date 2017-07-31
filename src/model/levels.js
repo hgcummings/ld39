@@ -79,7 +79,7 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
                 fixtures.pipes.push(new Pipe(i, j, 2));
                 fixtures.supplies.push(new Supply(i, j + 1, 2, parseInt(c, 10)));
             } else if (a === '@') {
-                fixtures.turntables.push(new Turntable(i, j, b === 'c' ? 1 : 3));
+                fixtures.turntables.push(new Turntable(i, j, b === 'r' ? 1 : 3, parseInt(c, 10)));
             }
         }
     }

@@ -27,7 +27,7 @@ export default () => {
     context.save();
     context.translate(unit / 2, unit * 3 / 8);
     context.rotate(Math.PI * 3/2);
-    drawDuck(completedDuck).foreground(context);
+    drawDuck(completedDuck, 0).foreground(context);
     context.restore();
 
     const scoreText = document.createElement('span');

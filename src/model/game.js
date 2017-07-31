@@ -25,6 +25,23 @@ export default () => {
                         lever.update(self.player);
                     }
 
+                    for (let i = self.ducks.length - 1; i >=0; --i) {
+                        const duck = self.ducks[i];
+                        duck.update(gameTime);
+
+                        if (duck.z <= -1) {
+                            self.ducks.splice(i, 1);
+                        }
+
+                        if (duck.x <= -1 || duck.y <= -1 || duck.x >= level.width || duck.y >= level.height) {
+                            self.ducks.splice(i, 1);
+
+                            if (duck.isValid()) {
+                                self.score++;
+                            }
+                        }
+                    }
+
                     for (let supply of level.fixtures.supplies) {
                         supply.update(self, tickNumber);
                     }
@@ -45,17 +62,8 @@ export default () => {
                         piston.update(self, tickNumber);
                     }
 
-                    for (let i = self.ducks.length - 1; i >=0; --i) {
-                        const duck = self.ducks[i];
-                        duck.update(gameTime);
-
-                        if (duck.x <= -1 || duck.y <= -1 || duck.x >= level.width || duck.y >= level.height) {
-                            self.ducks.splice(i, 1);
-
-                            if (duck.isValid()) {
-                                self.score++;
-                            }
-                        }
+                    for (let checker of level.fixtures.checkers) {
+                        checker.update(self, tickNumber);
                     }
                 }
 

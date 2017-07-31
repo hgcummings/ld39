@@ -30,12 +30,16 @@ export const init = () => {
             gridView.renderFixture(conveyor, fixtures.conveyor(conveyor, gameTime));
         }
 
+        for (let chute of model.level.fixtures.chutes) {
+            gridView.renderFixture(chute, fixtures.chute);
+        }
+
         for (let lever of model.level.fixtures.levers) {
             gridView.renderFixture(lever, fixtures.lever);
         }
 
         for (let duck of model.ducks) {
-            gridView.renderSprite(gameTime, duck, sprites.duck(duck));
+            gridView.renderSprite(gameTime, duck, sprites.duck(duck, gameTime));
         }
 
         for (let mould of model.level.fixtures.moulds) {
@@ -55,6 +59,10 @@ export const init = () => {
         }
 
         gridView.renderSprite(gameTime, model.player, sprites.player(model.player));
+
+        for (let checker of model.level.fixtures.checkers) {
+            gridView.renderFixture(checker, fixtures.checker(checker));
+        }
 
         for (let pipe of model.level.fixtures.pipes) {
             gridView.renderFixture(pipe, fixtures.pipe);

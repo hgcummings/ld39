@@ -1,23 +1,28 @@
 import {type Direction, components} from './direction';
 import {overlap} from './geometry';
 import Conveyor from './fixtures/conveyor';
+import Chute from './fixtures/chute';
 
 export default class Duck {
     x: number;
     y: number;
+    z: number;
     direction: Direction;
-    level: { fixtures: { conveyors: Array<Conveyor> } };
+    level: { fixtures: { conveyors: Array<Conveyor>, chutes: Array<Chute> } };
     vx: number;
     vy: number;
+    vz: number;
     lastUpdate: number;
-    state: { moulded:boolean, sprayed:Array<boolean>, printed: Array<boolean> }
+    state: { moulded:boolean, sprayed: Array<boolean>, printed: Array<boolean> }
 
-    constructor(level: { fixtures: { conveyors: Array<Conveyor> } }, x: number, y: number, direction: Direction) {
+    constructor(level: { fixtures: { conveyors: Array<Conveyor>, chutes: Array<Chute> } },
+            x: number, y: number, direction: Direction) {
         this.x = x;
         this.y = y;
+        this.z = 0;
         this.direction = direction;
         this.level = level;
-        this.vx = this.vy = 0;
+        this.vx = this.vy = this.vz = 0;
         this.state = {
             moulded: false,
             sprayed: [false, false, false, false],
@@ -30,8 +35,9 @@ export default class Duck {
 
         this.x += this.vx;
         this.y += this.vy;
+        this.z += this.vz;
 
-        if (this.x === Math.floor(this.x) && this.y === Math.floor(this.y)) {
+        if (this.z === 0 && this.x === Math.floor(this.x) && this.y === Math.floor(this.y)) {
             this.vx = 0;
             this.vy = 0;
         }
@@ -44,6 +50,7 @@ export default class Duck {
                 break;
             }
         }
+    }
 
     isValid() {
         return this.state.moulded &&

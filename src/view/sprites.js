@@ -3,6 +3,7 @@ import drawShadow from './graphics/shadow';
 import * as drawDuck from './graphics/duck';
 import Duck from '../model/duck';
 import {type Draw, unit} from './graphics/common';
+import {tick} from '../model/game';
 
 export const player = (model: { power: number }) => {
     return {
@@ -32,7 +33,7 @@ const drawCell = (cell:HTMLCanvasElement) =>
         ctx.drawImage(cell, -unit / 2, -unit / 2);
     };
 
-export const duck = (model: Duck) => {
+export const duck = (model: Duck, gameTime: number) => {
     let {drawUnpainted, drawPainted} = drawDuck;
     if (!model.state.moulded) {
         [drawPainted, drawUnpainted] = [drawDuck.drawUnmouldedPainted, drawDuck.drawUnmouldedUnpainted];
@@ -59,6 +60,9 @@ export const duck = (model: Duck) => {
         }
     }
 
+    const dt = (gameTime - model.lastUpdate) / tick;
+    const effectiveZ = model.z + model.vz * dt;
+
     return {
         foreground: (ctx:CanvasRenderingContext2D) => {
             body(ctx);
@@ -70,6 +74,7 @@ export const duck = (model: Duck) => {
                     ctx.restore();
                 }
             }
-        }
+        },
+        scale: Math.max(1 + effectiveZ, 0.001)
     }
 }

@@ -12,7 +12,7 @@ import Spray from './fixtures/spray';
 import Supply from './fixtures/supply';
 import Turntable from './fixtures/turntable';
 import {type Point} from './geometry';
-import {type Direction} from './direction';
+import {type Direction, components, invert} from './direction';
 import {Fixture} from './objects';
 
 const directions = ['^', '>', 'v', '<'];
@@ -46,10 +46,11 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
 
             if (a === 'x') {
                 start = new Fixture(i, j, directionOf(b));
-            } else if (a === 'Q') {
-                fixtures.checkers.push(new Checker(i, j, directionOf(b), c));
-            } else if (a === 'X') {
-                fixtures.chutes.push(new Chute(i, j, directionOf(b)));
+            } else if (a === 'C') {
+                const direction = directionOf(b);
+                const offset = components(direction);
+                fixtures.chutes.push(new Chute(i, j, direction));
+                fixtures.checkers.push(new Checker(i + offset.x, j + offset.y, invert(direction)));
             } else if (a === '#' || !isNaN(parseInt(a, 10))) {
                 const conveyor = new Conveyor(i, j, directionOf(b));
                 fixtures.conveyors.push(conveyor);

@@ -1,14 +1,17 @@
 import {unit} from './graphics/common';
 import drawLever from './graphics/lever';
+import drawChute from './graphics/chute';
 import {drawPipe, drawSupplyActive, drawSupplyInactive} from './graphics/pipes';
 import * as drawConveyor from './graphics/conveyor';
 import Conveyor from '../model/fixtures/conveyor';
+import Checker from '../model/fixtures/checker';
 import {tick} from '../model/game';
 import ActiveFixture from '../model/fixtures/activeFixture';
 import * as drawMould from './graphics/mould';
 import * as drawSpray from './graphics/spray';
 import * as drawPiston from './graphics/piston';
 import * as drawPrinter from './graphics/printer';
+import * as drawChecker from './graphics/checker';
 
 export const conveyor = (model: Conveyor, gameTime: number) => {
     const frameDuration = tick / model.speed / drawConveyor.framesPerUnitDistance;
@@ -21,6 +24,8 @@ export const conveyor = (model: Conveyor, gameTime: number) => {
 export const lever = { foreground: drawLever };
 
 export const pipe = { foreground: drawPipe };
+
+export const chute = { foreground: drawChute };
 
 export const supply = (model:ActiveFixture, gameTime:number) => {
     if (distanceToActiveTick(model, gameTime, -2) <= 4) {
@@ -65,6 +70,16 @@ export const printer = (model:ActiveFixture, gameTime:number) => {
         return { foreground: drawPrinter.inactive };
     }
 };
+
+export const checker = (model: Checker) => {
+    if (model.lastResult === true) {
+        return { background: drawChecker.success };
+    } else if (model.lastResult === false) {
+        return { background: drawChecker.failure };
+    } else {
+        return { background: drawChecker.resting };
+    }
+}
 
 /*
  * Distance to active tick, in half ticks (to allow for a decent framerate)

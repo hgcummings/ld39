@@ -1,4 +1,4 @@
-import {unit, drawCircle, preRender, preRenderCell} from './common';
+import {unit, drawCircle, drawGradientCircle, preRender, preRenderCell} from './common';
 
 const unpaintedPallete = ['#ddd', '#ccc', '#bbb', '#999'];
 const paintedPallete = ['#ee6', '#dd5', '#cc5', '#aa4'];
@@ -29,14 +29,6 @@ const drawMoulded = (pallete: Array<string>) => preRenderCell((ctx: CanvasRender
 export const drawUnpainted = drawMoulded(unpaintedPallete);
 export const drawPainted = drawMoulded(paintedPallete);
 
-const drawGradientCircle = (ctx:CanvasRenderingContext2D, x: number, y: number, r: number, from: string, to: string) => {
-    const gradient = ctx.createRadialGradient(x, y, 0, x, y, r);
-    gradient.addColorStop(0, from);
-    gradient.addColorStop(1, to);
-    ctx.fillStyle = gradient;
-    drawCircle(ctx, x, y, r);
-    ctx.fill();
-};
 const drawUnmoulded = (pallete:Array<string>) => preRenderCell((ctx: CanvasRenderingContext2D) => {
     drawGradientCircle(ctx, unit / 12, unit / 12, unit / 4, pallete[2], pallete[3]);
     drawGradientCircle(ctx, -unit / 6, -unit / 6, unit / 8, pallete[2], pallete[3]);

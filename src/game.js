@@ -42,6 +42,14 @@ export const init = () => {
             gridView.renderFixture(mould, fixtures.mould(mould, gameTime));
         }
 
+        for (let spray of model.level.fixtures.sprays) {
+            gridView.renderFixture(spray, fixtures.spray(spray, gameTime));
+        }
+
+        for (let piston of model.level.fixtures.pistons) {
+            gridView.renderFixture(piston, fixtures.piston(piston, gameTime));
+        }
+
         gridView.renderSprite(gameTime, model.player, sprites.player(model.player));
 
         for (let pipe of model.level.fixtures.pipes) {

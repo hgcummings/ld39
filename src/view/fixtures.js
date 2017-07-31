@@ -8,6 +8,7 @@ import ActiveFixture from '../model/fixtures/activeFixture';
 import * as drawMould from './graphics/mould';
 import * as drawSpray from './graphics/spray';
 import * as drawPiston from './graphics/piston';
+import * as drawStenciller from './graphics/stenciller';
 
 export const conveyor = (model: Conveyor, gameTime: number) => {
     const frameDuration = tick / model.speed / drawConveyor.framesPerUnitDistance;
@@ -53,6 +54,15 @@ export const piston = (model:ActiveFixture, gameTime:number) => {
         return { foreground: drawPiston.activeFrames[distanceToActive] };
     } else {
         return { foreground: drawPiston.inactive };
+    }
+};
+
+export const stenciller = (model:ActiveFixture, gameTime:number) => {
+    const distanceToActive = distanceToActiveTick(model, gameTime, -1);
+    if (distanceToActive < drawStenciller.activeFrames.length) {
+        return { foreground: drawStenciller.activeFrames[distanceToActive] };
+    } else {
+        return { foreground: drawStenciller.inactive };
     }
 };
 

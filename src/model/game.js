@@ -12,6 +12,7 @@ export default () => {
         level: level,
         player: initPlayerModel(level),
         ducks: [],
+        score: 0,
         update: (gameTime: number) => {
             self.player.update(gameTime);
 
@@ -44,8 +45,17 @@ export default () => {
                         piston.update(self, tickNumber);
                     }
 
-                    for (let duck of self.ducks) {
+                    for (let i = self.ducks.length - 1; i >=0; --i) {
+                        const duck = self.ducks[i];
                         duck.update(gameTime);
+
+                        if (duck.x <= -1 || duck.y <= -1 || duck.x >= level.width || duck.y >= level.height) {
+                            self.ducks.splice(i, 1);
+
+                            if (duck.isValid()) {
+                                self.score++;
+                            }
+                        }
                     }
                 }
 

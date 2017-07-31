@@ -38,27 +38,27 @@ export const duck = (model: Duck) => {
         [drawPainted, drawUnpainted] = [drawDuck.drawUnmouldedPainted, drawDuck.drawUnmouldedUnpainted];
     }
     let body;
-    if (model.state.sprayed.some(val => val)) {
-        if (isComplete(model.state.sprayed)) {
-            body = drawCell(drawPainted);
-        } else {
-            body = (ctx: CanvasRenderingContext2D) => {
-                drawCell(drawUnpainted)(ctx);
-                for (let d = 0; d < 4; ++d) {
-                    if (model.state.sprayed[d]) {
-                        const x = d === 1 ? 0 : -unit / 2;
-                        const y = d === 2 ? 0 : -unit / 2;
-                        const w = d % 2 === 0 ? unit : unit / 2;
-                        const h = d % 2 === 0 ? unit / 2 : unit;
 
-                        ctx.drawImage(drawPainted, x + unit / 2, y + unit / 2, w, h, x, y, w, h);
-                    }
+    if (isComplete(model.state.sprayed)) {
+        body = drawCell(drawPainted);
+    } else if (!model.state.sprayed.some(val => val)) {
+        body = drawCell(drawUnpainted);
+    } else {
+        body = (ctx: CanvasRenderingContext2D) => {
+            drawCell(drawUnpainted)(ctx);
+            for (let d = 0; d < 4; ++d) {
+                if (model.state.sprayed[d]) {
+                    const x = d === 1 ? 0 : -unit / 2;
+                    const y = d === 2 ? 0 : -unit / 2;
+                    const w = d % 2 === 0 ? unit : unit / 2;
+                    const h = d % 2 === 0 ? unit / 2 : unit;
+
+                    ctx.drawImage(drawPainted, x + unit / 2, y + unit / 2, w, h, x, y, w, h);
                 }
             }
         }
-    } else {
-        body = drawCell(drawUnpainted);
     }
+
     return {
         foreground: (ctx:CanvasRenderingContext2D) => {
             body(ctx);

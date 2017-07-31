@@ -40,7 +40,7 @@ const drawUnmoulded = (pallete:Array<string>) => preRenderCell((ctx: CanvasRende
 export const drawUnmouldedUnpainted = drawUnmoulded(unpaintedPallete);
 export const drawUnmouldedPainted = drawUnmoulded(paintedPallete);
 
-export const drawStencilling = preRender((ctx: CanvasRenderingContext2D) => {
+export const drawPrinting = preRender((ctx: CanvasRenderingContext2D) => {
     ctx.fillStyle = '#e70';
     ctx.beginPath();
     ctx.moveTo(-unit / 8, -unit /6);

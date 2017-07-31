@@ -10,7 +10,7 @@ export default class Duck {
     vx: number;
     vy: number;
     lastUpdate: number;
-    state: { moulded:boolean, sprayed:Array<boolean>, stencilled: Array<boolean> }
+    state: { moulded:boolean, sprayed:Array<boolean>, printed: Array<boolean> }
 
     constructor(level: { fixtures: { conveyors: Array<Conveyor> } }, x: number, y: number, direction: Direction) {
         this.x = x;
@@ -21,7 +21,7 @@ export default class Duck {
         this.state = {
             moulded: false,
             sprayed: [false, false, false, false],
-            stencilled: [false, false, false, false]
+            printed: [false, false, false, false]
         }
     }
 

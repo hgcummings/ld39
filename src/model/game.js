@@ -36,8 +36,8 @@ export default () => {
                         spray.update(self, tickNumber);
                     }
 
-                    for (let stenciller of level.fixtures.stencillers) {
-                        stenciller.update(self, tickNumber);
+                    for (let printer of level.fixtures.printers) {
+                        printer.update(self, tickNumber);
                     }
 
                     for (let piston of level.fixtures.pistons) {

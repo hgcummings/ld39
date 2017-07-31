@@ -8,7 +8,7 @@ import ActiveFixture from '../model/fixtures/activeFixture';
 import * as drawMould from './graphics/mould';
 import * as drawSpray from './graphics/spray';
 import * as drawPiston from './graphics/piston';
-import * as drawStenciller from './graphics/stenciller';
+import * as drawPrinter from './graphics/printer';
 
 export const conveyor = (model: Conveyor, gameTime: number) => {
     const frameDuration = tick / model.speed / drawConveyor.framesPerUnitDistance;
@@ -23,7 +23,7 @@ export const lever = { foreground: drawLever };
 export const pipe = { foreground: drawPipe };
 
 export const supply = (model:ActiveFixture, gameTime:number) => {
-    if (distanceToActiveTick(model, gameTime) <= 4) {
+    if (distanceToActiveTick(model, gameTime, -2) <= 4) {
         return { foreground: drawSupplyActive };
     } else {
         return { foreground: drawSupplyInactive };
@@ -57,12 +57,12 @@ export const piston = (model:ActiveFixture, gameTime:number) => {
     }
 };
 
-export const stenciller = (model:ActiveFixture, gameTime:number) => {
+export const printer = (model:ActiveFixture, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, -1);
-    if (distanceToActive < drawStenciller.activeFrames.length) {
-        return { foreground: drawStenciller.activeFrames[distanceToActive] };
+    if (distanceToActive < drawPrinter.activeFrames.length) {
+        return { foreground: drawPrinter.activeFrames[distanceToActive] };
     } else {
-        return { foreground: drawStenciller.inactive };
+        return { foreground: drawPrinter.inactive };
     }
 };
 

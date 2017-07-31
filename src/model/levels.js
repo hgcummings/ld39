@@ -7,8 +7,8 @@ import Lever from './fixtures/lever';
 import Mould, {DummyMould} from './fixtures/mould';
 import Pipe from './fixtures/pipe';
 import Piston from './fixtures/piston';
+import Printer from './fixtures/printer';
 import Spray from './fixtures/spray';
-import Stenciller from './fixtures/stenciller';
 import Supply from './fixtures/supply';
 import Turntable from './fixtures/turntable';
 import {type Point} from './geometry';
@@ -33,7 +33,7 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
         pipes: [],
         pistons: [],
         sprays: [],
-        stencillers: [],
+        printers: [],
         supplies: [],
         turntables: []
     };
@@ -73,7 +73,7 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
             } else if (a === 'S') {
                 fixtures.sprays.push(new Spray(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 's') {
-                fixtures.stencillers.push(new Stenciller(i, j, directionOf(b), parseInt(c, 10)));
+                fixtures.printers.push(new Printer(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'U') {
                 fixtures.pipes.push(new Pipe(i, j, 2));
                 fixtures.supplies.push(new Supply(i, j + 1, 2, parseInt(c, 10)));

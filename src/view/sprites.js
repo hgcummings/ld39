@@ -63,10 +63,10 @@ export const duck = (model: Duck) => {
         foreground: (ctx:CanvasRenderingContext2D) => {
             body(ctx);
             for (let d = 0; d < 4; ++d) {
-                if (model.state.stencilled[d]) {
+                if (model.state.printed[d]) {
                     ctx.save();
                     ctx.rotate(d * Math.PI / 2);
-                    drawDuck.drawStencilling(ctx);
+                    drawDuck.drawPrinting(ctx);
                     ctx.restore();
                 }
             }

@@ -1,5 +1,5 @@
 import {unit, preRender} from './common';
-import {drawStencilling} from './duck';
+import {drawPrinting} from './duck';
 
 export const inactive = preRender((ctx: CanvasRenderingContext2D) => {
     const gradient = ctx.createLinearGradient(-unit / 2, 0, unit / 2, 0);
@@ -27,7 +27,7 @@ for (let i = 0; i < 8; ++i) {
 
         ctx.fillRect(-unit / 4, -unit / 2, unit /2, unit /2);
 
-        drawStencilling(ctx);
+        drawPrinting(ctx);
 
         ctx.beginPath();
         ctx.strokeStyle = '#666';

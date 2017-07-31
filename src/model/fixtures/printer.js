@@ -4,7 +4,7 @@ import Duck from '../duck';
 
 const defaultPeriod = 24;
 
-export default class Stenciller extends ActiveFixture {
+export default class Printer extends ActiveFixture {
     target: { x: number, y: number };
 
     constructor(x: number, y: number, direction: Direction, offset: number) {
@@ -17,7 +17,7 @@ export default class Stenciller extends ActiveFixture {
         if (tickNumber % this.period === this.offset) {
             for (let duck of model.ducks) {
                 if (duck.x === this.target.x && duck.y === this.target.y) {
-                    duck.state.stencilled[relative(this.direction, duck.direction)] = true;
+                    duck.state.printed[relative(this.direction, duck.direction)] = true;
                     break;
                 }
             }

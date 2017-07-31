@@ -50,8 +50,8 @@ export const init = () => {
             gridView.renderFixture(piston, fixtures.piston(piston, gameTime));
         }
 
-        for (let stenciller of model.level.fixtures.stencillers) {
-            gridView.renderFixture(stenciller, fixtures.stenciller(stenciller, gameTime));
+        for (let printer of model.level.fixtures.printers) {
+            gridView.renderFixture(printer, fixtures.printer(printer, gameTime));
         }
 
         gridView.renderSprite(gameTime, model.player, sprites.player(model.player));

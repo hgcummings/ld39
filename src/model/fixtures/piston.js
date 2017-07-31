@@ -21,7 +21,6 @@ export default class Piston extends ActiveFixture {
                     const move = components(this.direction);
                     duck.vx = move.x * speed;
                     duck.vy = move.y * speed;
-                    break;
                 }
             }
         }

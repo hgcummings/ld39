@@ -19,7 +19,6 @@ export default class Mould extends ActiveFixture {
                 if (duck.x === this.target.x && duck.y === this.target.y) {
                     duck.state.moulded = true;
                     duck.direction = increment(this.direction);
-                    break;
                 }
             }
         }

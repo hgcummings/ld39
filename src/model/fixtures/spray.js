@@ -18,7 +18,6 @@ export default class Spray extends ActiveFixture {
             for (let duck of model.ducks) {
                 if (duck.x === this.target.x && duck.y === this.target.y) {
                     duck.state.sprayed[relative(this.direction, duck.direction)] = true;
-                    break;
                 }
             }
         }

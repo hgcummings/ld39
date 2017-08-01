@@ -54,7 +54,7 @@ export default class Duck {
 
     isValid() {
         return this.state.moulded &&
-            (this.state.sprayed[0] && this.state.sprayed[2]) || (this.state.sprayed[1] && this.state.sprayed[3]) &&
+            ((this.state.sprayed[0] && this.state.sprayed[2]) || (this.state.sprayed[1] && this.state.sprayed[3])) &&
             this.state.printed[0] && !(this.state.printed[1] || this.state.printed[2] || this.state.printed[3]);
     }
 }

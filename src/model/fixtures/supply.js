@@ -10,7 +10,7 @@ export default class Supply extends ActiveFixture {
     }
 
     update(model: { level: any, ducks: Array<Duck> }, tickNumber: number) {
-        if (tickNumber % this.period === 0) {
+        if (tickNumber % this.period === this.offset) {
             model.ducks.push(new Duck(model.level, this.x, this.y, randomDirection()));
         }
     }

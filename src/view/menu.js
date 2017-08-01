@@ -3,6 +3,10 @@ export default (
     levels: Array<{ name: string, description: string}>,
     onSelect: (levelId:number) => void) => {
 
+    let selected = false;
+
+    const heading = document.createElement('h4');
+    heading.innerText = 'Choose a level';
 
     const list = document.createElement('dl');
     levels.forEach((level, id) => {
@@ -18,9 +22,14 @@ export default (
     });
 
     const select = (id:number) => {
-        list.remove();
-        onSelect(id);
+        if (!selected) {
+            selected = true;
+            heading.remove();
+            list.remove();
+            onSelect(id);
+        }
     };
 
+    container.appendChild(heading);
     container.appendChild(list);
 }

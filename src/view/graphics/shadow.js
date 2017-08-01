@@ -1,7 +1,7 @@
 import {unit} from './common';
 
-const shadowLimit = unit * 6;
-const preRenderSize = unit * 16;
+const shadowLimit = unit * 5;
+const preRenderSize = unit * 12;
 const preRenderedShadow = document.createElement('canvas');
 preRenderedShadow.width = preRenderedShadow.height = preRenderSize;
 const ctx = preRenderedShadow.getContext('2d');

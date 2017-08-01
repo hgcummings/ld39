@@ -4,11 +4,9 @@ import initModel from './model/game';
 import * as sprites from './view/sprites';
 import * as fixtures from './view/fixtures';
 
-export const init = () => {
-    const model = initModel();
+export const init = (container: HTMLElement, levelId: number) => {
+    const model = initModel(levelId);
 
-    // $FlowFixMe
-    const container: HTMLElement = document.getElementById('game');
     const gridView = initGridView(model.level);
     container.appendChild(gridView.element);
 
@@ -23,6 +21,11 @@ export const init = () => {
         model.update(gameTime);
 
         hudView.update(model);
+
+        if (model.over) {
+            container.removeChild(gridView.element);
+            return;
+        }
 
         gridView.renderFloor();
 

@@ -1,20 +1,25 @@
-import {loadLevel} from './levels';
+import levels from './levels';
 import initPlayerModel from './player';
 import Duck from './duck';
 
 export const tick = 125;
 export const tickFrequency = 0.008;
 
-export default () => {
-    const level = loadLevel(0);
+export default (levelId: number) => {
+    const level = levels[levelId];
     let lastUpdate = 0;
     const self = {
         level: level,
         player: initPlayerModel(level),
         ducks: [],
         score: 0,
+        over: false,
         update: (gameTime: number) => {
             self.player.update(gameTime);
+
+            if (self.player.power <= 0) {
+                self.over = true;
+            }
 
             if (Math.floor(gameTime / tick) > Math.floor(lastUpdate / tick)) {
                 const nextTick = lastUpdate + tick - (lastUpdate % tick);

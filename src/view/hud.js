@@ -38,9 +38,30 @@ export default () => {
 
     return {
         element: wrapper,
-        update: (model: {score:number, player: {power: number, active: boolean}}) => {
-            power.style.width = model.player.power + '%';
+        update: (model: {over: boolean; score:number, player: {power: number, active: boolean}}) => {
             scoreText.innerText = `x ${model.score}`;
+
+            if (model.over) {
+                wrapper.removeChild(powerWrapper);
+                const message = document.createElement('h3');
+                message.innerText = 'You ran out of power!'
+
+                const scoreHeader = document.createElement('h4');
+                scoreHeader.innerText = 'But you built this many ducks:'
+                wrapper.removeChild(scoreWrapper);
+                wrapper.appendChild(message);
+                wrapper.appendChild(scoreHeader);
+                wrapper.appendChild(scoreWrapper);
+
+                const restart = document.createElement('a');
+                restart.href = '#';
+                restart.innerText = 'Click to play again';
+                restart.onclick = (e:Event) => { event.preventDefault(); window.location.reload(); }
+                wrapper.appendChild(restart);
+                return;
+            }
+
+            power.style.width = model.player.power + '%';
             if (model.player.power < 20) {
                 power.classList.add('progress-bar-danger');
                 power.classList.remove('progress-bar-warning');

@@ -1,4 +1,4 @@
-META:{"target": 10,"shadow":false}
+META:{"target": 10,"shadow":false,"name":"Demo","description":"Nothing for you to do here! Just see how everything works..."}
   | uv |  |     |     |     |     |     |    |     |     |    |  |  |  
   | uv |  |     |     |     |     |     |    |     |     |    |  |  |  
   |Uv,0|  |mv,9 |     |Sv,17|     |Tv,7 |    |     |     |    |  |  |  

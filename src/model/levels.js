@@ -18,8 +18,7 @@ import {Fixture} from './objects';
 const directions = ['^', '>', 'v', '<'];
 const directionOf = (character: string) => ((directions.indexOf(character) : any): Direction)
 
-
-const levels = allData.split('META:').filter(levelData => levelData !== '').map(levelData => {
+export default allData.split('META:').filter(levelData => levelData !== '').map(levelData => {
     const rows = levelData.split('\n');
     const meta = JSON.parse(rows.shift());
     
@@ -92,7 +91,3 @@ const levels = allData.split('META:').filter(levelData => levelData !== '').map(
         height: rows.length
     }
 });
-
-export const loadLevel = (id: number) => {
-    return levels[id];
-}

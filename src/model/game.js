@@ -19,6 +19,7 @@ export default (levelId: number) => {
 
             if (self.player.power <= 0) {
                 self.over = true;
+                return;
             }
 
             if (Math.floor(gameTime / tick) > Math.floor(lastUpdate / tick)) {

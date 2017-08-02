@@ -1,5 +1,4 @@
 import {type Direction, components} from './direction';
-import {overlap} from './geometry';
 import Conveyor from './fixtures/conveyor';
 import Chute from './fixtures/chute';
 
@@ -15,6 +14,7 @@ export default class Duck {
     lastUpdate: number;
     state: { moulded:boolean, sprayed: Array<boolean>, printed: Array<boolean> }
 
+    // $FlowFixMe
     constructor(level: { fixtures: { conveyors: Array<Conveyor>, chutes: Array<Chute> } },
             x: number, y: number, direction: Direction) {
         this.x = x;

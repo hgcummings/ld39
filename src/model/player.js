@@ -5,7 +5,9 @@ import Conveyor from './fixtures/conveyor';
 import {type Fixture} from './objects';
 import {tickFrequency} from './game';
 
-export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor> }, width: number, height: number}) => {
+export const radius = 3/8;
+
+export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor>, chutes: Array<Fixture> }, width: number, height: number}) => {
     const move_speed = 0.375;
     const move_power = 0.625;
     const idle_power = 0.0625;

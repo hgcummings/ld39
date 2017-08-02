@@ -1,13 +1,13 @@
 import {getDirection} from '../input';
 import {type Direction, components} from './direction';
-import {overlap, constrain} from './geometry';
+import {overlap, constrain, distance, type Body, circleBodies} from './geometry';
 import Conveyor from './fixtures/conveyor';
 import {type Fixture} from './objects';
 import {tickFrequency} from './game';
 
 export const radius = 3/8;
 
-export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor>, chutes: Array<Fixture> }, width: number, height: number}) => {
+export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor>, fixed: Array<{ body:Body }> }, width: number, height: number}) => {
     const move_speed = 0.375;
     const move_power = 0.625;
     const idle_power = 0.0625;
@@ -50,6 +50,17 @@ export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor>, 
 
             self.x += self.vx;
             self.y += self.vy;
+
+            for (let body of circleBodies(self.x, self.y, radius)) {
+                for (let fixed of level.fixtures.fixed) {
+                    const dist = distance(body, fixed.body);
+                    if (dist.x < 0 && dist.y < 0) {
+                        self.x += Math.max(dist.x, -1 * Math.abs(self.vx)) * Math.sign(self.vx);
+                        self.y += Math.max(dist.y, -1 * Math.abs(self.vy)) * Math.sign(self.vy);
+                        break;
+                    }
+                }
+            }
 
             constrain(self, levelBoundary);
         }

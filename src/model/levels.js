@@ -34,7 +34,8 @@ export default allData.split('META:').filter(levelData => levelData !== '').map(
         sprays: [],
         printers: [],
         supplies: [],
-        turntables: []
+        turntables: [],
+        fixed: []
     };
     let start:Fixture;
 
@@ -83,6 +84,8 @@ export default allData.split('META:').filter(levelData => levelData !== '').map(
         }
     }
     
+    fixtures.fixed = [].concat(fixtures.chutes, fixtures.moulds, fixtures.checkers);
+
     return {
         start: start,
         meta: meta,

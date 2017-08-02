@@ -1,6 +1,7 @@
 import {Fixture} from '../objects';
 import Duck from '../duck';
-import {components} from '../direction';
+import {type Direction, components} from '../direction';
+import {type Body} from '../geometry';
 
 const speed = 0.25;
 const z_speed = 0.2;
@@ -9,6 +10,18 @@ const resultDuration = 4;
 export default class Checker extends Fixture {
     lastResult: ?boolean;
     lastResultTick: number;
+
+    body: Body;
+
+    constructor(x: number, y: number, direction: Direction) {
+        super(x, y, direction);
+        this.body = {
+            x: this.x,
+            y: this.y,
+            width: 1,
+            height: 1
+        }
+    }
 
     update(model: { ducks: Array<Duck> }, tickNumber: number) {
         for (let duck of model.ducks) {

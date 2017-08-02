@@ -18,7 +18,7 @@ export default (
         const description = document.createElement('dd');
         description.innerText = level.description;
         list.appendChild(description);
-        list.onclick = () => select(id);
+        description.onclick = () => select(id);
     });
 
     const select = (id:number) => {

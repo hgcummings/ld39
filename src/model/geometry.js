@@ -23,21 +23,18 @@ export const distance = (a: Body, b: Body) => {
 }
 
 /**
- * Approximate a circle by two AABBs appearing as illustrated    ...##...
- * to the right. Note that we use four boxes rather than two     ..#..#..
- * overlapping boxes in order to allow the closest box to be     ..#..#..
- * checked first, in case the amount of overlap matters.         ...##...
+ * Approximate a circle by two AABBs appearing as illustrated below:
+ * 
+ * ........
+ * ...11...
+ * ..2½½2..
+ * ..2½½2..
+ * ...11...
+ * ........
  */
 export const circleBodies = (x: number, y: number, r: number) => {
-    const bodies = [];
-    for (let i = 0; i < 4; ++i) {
-        bodies.push({
-            x: x + (i % 2 === 0 ? 0 : (i - 2) * 3 / 4 * r),
-            y: y + (i % 2 === 1 ? 0 : (i - 1) * -3 / 4 * r),
-            height: (1 + (i % 2)) * r / 2,
-            width: (1 + ((i + 1) % 2)) * r / 2
-        });
-    }
-
-    return bodies;
+    return [
+        { x: x, y: y, width: r, height: r * 2 },
+        { x: x, y: y, width: r * 2, height: r }
+    ]
 }

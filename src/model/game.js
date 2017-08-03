@@ -1,6 +1,6 @@
 import levels from './levels';
 import initPlayerModel from './player';
-import Duck from './duck';
+import Duck from './movable/duck';
 
 export const tick = 125;
 export const tickFrequency = 0.008;

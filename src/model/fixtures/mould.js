@@ -1,6 +1,6 @@
 import ActiveFixture from './activeFixture';
 import {type Direction, components, increment} from '../direction';
-import Duck from '../duck';
+import Duck from '../movable/duck';
 import {type Body} from '../geometry';
 
 const defaultPeriod = 24;

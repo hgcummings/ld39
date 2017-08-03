@@ -1,5 +1,5 @@
 import {Fixture} from '../objects';
-import Duck from '../duck';
+import Duck from '../movable/duck';
 import {type Direction, components} from '../direction';
 import {type Body} from '../geometry';
 

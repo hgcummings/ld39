@@ -1,7 +1,7 @@
 import * as drawPlayer from './graphics/player';
 import drawShadow from './graphics/shadow';
 import * as drawDuck from './graphics/duck';
-import Duck from '../model/duck';
+import Duck from '../model/movable/duck';
 import {type Draw, unit} from './graphics/common';
 import {tick} from '../model/game';
 

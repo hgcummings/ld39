@@ -1,28 +1,21 @@
-import {type Direction, components} from './direction';
-import Conveyor from './fixtures/conveyor';
-import Chute from './fixtures/chute';
+import Movable from './movable';
+import {type Direction, components} from '../direction';
+import Conveyor from '../fixtures/conveyor';
+import Chute from '../fixtures/chute';
 
-export default class Duck {
-    x: number;
-    y: number;
+export default class Duck extends Movable {
     z: number;
-    direction: Direction;
     level: { fixtures: { conveyors: Array<Conveyor>, chutes: Array<Chute> } };
-    vx: number;
-    vy: number;
     vz: number;
-    lastUpdate: number;
     state: { moulded:boolean, sprayed: Array<boolean>, printed: Array<boolean> }
 
     // $FlowFixMe
     constructor(level: { fixtures: { conveyors: Array<Conveyor>, chutes: Array<Chute> } },
             x: number, y: number, direction: Direction) {
-        this.x = x;
-        this.y = y;
+        super(x, y, direction);
         this.z = 0;
-        this.direction = direction;
+        this.vz = 0;
         this.level = level;
-        this.vx = this.vy = this.vz = 0;
         this.state = {
             moulded: false,
             sprayed: [false, false, false, false],

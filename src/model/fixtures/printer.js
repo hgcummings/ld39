@@ -1,6 +1,6 @@
 import ActiveFixture from './activeFixture';
 import {type Direction, components, relative} from '../direction';
-import Duck from '../duck';
+import Duck from '../movable/duck';
 
 const defaultPeriod = 24;
 

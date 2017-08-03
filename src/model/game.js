@@ -27,7 +27,7 @@ export default (levelId: number) => {
                 for (let time = nextTick; time <= gameTime; time += tick) {
                     const tickNumber = time / tick;
 
-                    for (let lever of level.fixtures.levers) {
+                    for (let lever of level.machinery.levers) {
                         lever.update(self.player);
                     }
 
@@ -48,35 +48,35 @@ export default (levelId: number) => {
                         }
                     }
 
-                    for (let conveyor of level.fixtures.conveyors) {
+                    for (let conveyor of level.machinery.conveyors) {
                         conveyor.update(self);
                     }
 
-                    for (let outlet of level.fixtures.outlets) {
+                    for (let outlet of level.machinery.outlets) {
                         outlet.update(self, tickNumber);
                     }
 
-                    for (let press of level.fixtures.presses) {
+                    for (let press of level.machinery.presses) {
                         press.update(self, tickNumber);
                     }
 
-                    for (let painter of level.fixtures.painters) {
+                    for (let painter of level.machinery.painters) {
                         painter.update(self, tickNumber);
                     }
 
-                    for (let printer of level.fixtures.printers) {
+                    for (let printer of level.machinery.printers) {
                         printer.update(self, tickNumber);
                     }
 
-                    for (let pusher of level.fixtures.pushers) {
+                    for (let pusher of level.machinery.pushers) {
                         pusher.update(self, tickNumber);
                     }
 
-                    for (let turntable of level.fixtures.turntables) {
+                    for (let turntable of level.machinery.turntables) {
                         turntable.update(self, tickNumber);
                     }
 
-                    for (let checker of level.fixtures.checkers) {
+                    for (let checker of level.machinery.checkers) {
                         checker.update(self, tickNumber);
                     }
                 }

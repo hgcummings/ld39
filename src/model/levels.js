@@ -23,7 +23,7 @@ export default allData.split('META:').filter(levelData => levelData !== '').map(
     const meta = JSON.parse(rows.shift());
     
     const numberedConveyors = [];
-    const fixtures = {
+    const machinery = {
         checkers: [],
         chutes: [],
         conveyors: [],
@@ -49,11 +49,11 @@ export default allData.split('META:').filter(levelData => levelData !== '').map(
             } else if (a === 'C') {
                 const direction = directionOf(b);
                 const offset = components(direction);
-                fixtures.chutes.push(new Chute(i, j, direction));
-                fixtures.checkers.push(new Checker(i + offset.x, j + offset.y, invert(direction)));
+                machinery.chutes.push(new Chute(i, j, direction));
+                machinery.checkers.push(new Checker(i + offset.x, j + offset.y, invert(direction)));
             } else if (a === '#' || !isNaN(parseInt(a, 10))) {
                 const conveyor = new Conveyor(i, j, directionOf(b));
-                fixtures.conveyors.push(conveyor);
+                machinery.conveyors.push(conveyor);
                 const index = parseInt(a, 10);
                 if (!isNaN(index)) {
                     numberedConveyors[index] = numberedConveyors[index] || [];
@@ -62,34 +62,35 @@ export default allData.split('META:').filter(levelData => levelData !== '').map(
             } else if (a === '/' || a === '\\') {
                 const index = parseInt(b, 10);
                 numberedConveyors[index] = numberedConveyors[index] || [];
-                fixtures.levers.push(new Lever(i, j, a === '/' ? 1 : 3, numberedConveyors[index]));
+                machinery.levers.push(new Lever(i, j, a === '/' ? 1 : 3, numberedConveyors[index]));
             } else if (a === 'M') {
-                fixtures.presses.push(new Press(i, j, directionOf(b), parseInt(c, 10)));
+                machinery.presses.push(new Press(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'm') {
-                fixtures.presses.push(new DummyPress(i, j, directionOf(b), parseInt(c, 10)));
+                machinery.presses.push(new DummyPress(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'u') {
-                fixtures.pipes.push(new Pipe(i, j, 2));
+                machinery.pipes.push(new Pipe(i, j, 2));
             } else if (a === 'T') {
-                fixtures.pushers.push(new Pusher(i, j, directionOf(b), parseInt(c, 10)));
+                machinery.pushers.push(new Pusher(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'S') {
-                fixtures.painters.push(new Painter(i, j, directionOf(b), parseInt(c, 10)));
+                machinery.painters.push(new Painter(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 's') {
-                fixtures.printers.push(new Printer(i, j, directionOf(b), parseInt(c, 10)));
+                machinery.printers.push(new Printer(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'U') {
-                fixtures.pipes.push(new Pipe(i, j, 2));
-                fixtures.outlets.push(new Outlet(i, j + 1, 2, parseInt(c, 10)));
+                machinery.pipes.push(new Pipe(i, j, 2));
+                machinery.outlets.push(new Outlet(i, j + 1, 2, parseInt(c, 10)));
             } else if (a === '@') {
-                fixtures.turntables.push(new Turntable(i, j, b === 'r' ? 1 : 3, parseInt(c, 10)));
+                machinery.turntables.push(new Turntable(i, j, b === 'r' ? 1 : 3, parseInt(c, 10)));
             }
         }
     }
     
-    fixtures.fixed = [].concat(fixtures.chutes, fixtures.presses, fixtures.checkers);
+    machinery.fixed = [].concat(machinery.chutes, machinery.presses, machinery.checkers);
+
 
     return {
         start: start,
         meta: meta,
-        fixtures: fixtures,
+        machinery: machinery,
         width: rows[0].split('|').length,
         height: rows.length
     }

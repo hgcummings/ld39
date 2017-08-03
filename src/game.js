@@ -29,19 +29,19 @@ export const init = (container: HTMLElement, levelId: number) => {
 
         gridView.renderFloor();
 
-        for (let conveyor of model.level.fixtures.conveyors) {
+        for (let conveyor of model.level.machinery.conveyors) {
             gridView.renderFixture(conveyor, machinery.conveyor(conveyor, gameTime));
         }
 
-        for (let turntable of model.level.fixtures.turntables) {
+        for (let turntable of model.level.machinery.turntables) {
             gridView.renderFixture(turntable, machinery.turntable(turntable, gameTime));
         }
 
-        for (let chute of model.level.fixtures.chutes) {
+        for (let chute of model.level.machinery.chutes) {
             gridView.renderFixture(chute, machinery.chute);
         }
 
-        for (let lever of model.level.fixtures.levers) {
+        for (let lever of model.level.machinery.levers) {
             gridView.renderFixture(lever, machinery.lever);
         }
 
@@ -49,33 +49,33 @@ export const init = (container: HTMLElement, levelId: number) => {
             gridView.renderSprite(gameTime, duck, sprites.duck(duck, gameTime));
         }
 
-        for (let press of model.level.fixtures.presses) {
+        for (let press of model.level.machinery.presses) {
             gridView.renderFixture(press, machinery.press(press, gameTime));
         }
 
-        for (let painter of model.level.fixtures.painters) {
+        for (let painter of model.level.machinery.painters) {
             gridView.renderFixture(painter, machinery.painter(painter, gameTime));
         }
 
-        for (let pusher of model.level.fixtures.pushers) {
+        for (let pusher of model.level.machinery.pushers) {
             gridView.renderFixture(pusher, machinery.pusher(pusher, gameTime));
         }
 
-        for (let printer of model.level.fixtures.printers) {
+        for (let printer of model.level.machinery.printers) {
             gridView.renderFixture(printer, machinery.printer(printer, gameTime));
         }
 
         gridView.renderSprite(gameTime, model.player, sprites.player(model.player));
 
-        for (let checker of model.level.fixtures.checkers) {
+        for (let checker of model.level.machinery.checkers) {
             gridView.renderFixture(checker, machinery.checker(checker));
         }
 
-        for (let pipe of model.level.fixtures.pipes) {
+        for (let pipe of model.level.machinery.pipes) {
             gridView.renderFixture(pipe, machinery.pipe);
         }
 
-        for (let outlet of model.level.fixtures.outlets) {
+        for (let outlet of model.level.machinery.outlets) {
             gridView.renderFixture(outlet, machinery.outlet(outlet, gameTime));
         }
 

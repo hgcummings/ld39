@@ -7,7 +7,7 @@ import {tickFrequency} from './game';
 
 export const radius = 3/8;
 
-export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor>, fixed: Array<{ body:Body }> }, width: number, height: number}) => {
+export default (level: {start: Fixture, machinery: { conveyors: Array<Conveyor>, fixed: Array<{ body:Body }> }, width: number, height: number}) => {
     const move_speed = 0.375;
     const move_power = 0.625;
     const idle_power = 0.0625;
@@ -40,7 +40,7 @@ export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor>, 
                 self.active = false;
             }
 
-            for (let conveyor of level.fixtures.conveyors) {
+            for (let conveyor of level.machinery.conveyors) {
                 if (overlap(self, conveyor)) {
                     self.vx += conveyor.velocity.x * dt * tickFrequency;
                     self.vy += conveyor.velocity.y * dt * tickFrequency;
@@ -52,7 +52,7 @@ export default (level: {start: Fixture, fixtures: { conveyors: Array<Conveyor>, 
             self.y += self.vy;
 
             for (let body of circleBodies(self.x, self.y, radius)) {
-                for (let fixed of level.fixtures.fixed) {
+                for (let fixed of level.machinery.fixed) {
                     const dist = distance(body, fixed.body);
                     if (dist.x < 0 && dist.y < 0) {
                         self.x += Math.max(dist.x, -1 * Math.abs(self.vx)) * Math.sign(self.vx);

@@ -1,6 +1,8 @@
 // Adapted from https://github.com/hgcummings/runrun-rabbit/blob/master/client/graphics/common.js
 
 export type Draw = (CanvasRenderingContext2D) => void;
+export type Drawable = { foreground?: Draw, background?: Draw, scale?: number };
+
 export const unit = 48;
 
 export const drawCircle = (context:CanvasRenderingContext2D, x: number, y: number, radius: number) => {

@@ -1,5 +1,5 @@
 import type {Direction} from '../model/direction';
-import {type Draw, unit} from './graphics/common';
+import {type Draw, type Drawable, unit} from './graphics/common';
 import {type Sprite, type Fixture} from '../model/objects';
 import {tick} from '../model/game';
 import drawTile from './graphics/tile';
@@ -49,8 +49,7 @@ export default (grid: {width: number, height: number}) => {
     }
 
     const frameduration = 1000 / 16;
-    const renderSprite = (gameTime: number,
-            model:Sprite, view: { foreground?: Draw, background?: Draw, scale?: number }) => {
+    const renderSprite = (model:Sprite, view: Drawable, gameTime: number) => {
         const dt = (gameTime - model.lastUpdate) / tick;
         render(
             model.x + model.vx * dt,
@@ -61,8 +60,7 @@ export default (grid: {width: number, height: number}) => {
             view.scale);
     }
 
-    const renderFixture = (
-            model:Fixture, view: { foreground?: Draw, background?: Draw, scale?: number }) => {
+    const renderFixture = (model:Fixture, view: Drawable) => {
         render(model.x, model.y, model.direction, view.foreground, view.background, view.scale);
     }
 

@@ -1,15 +1,19 @@
-import ActiveFixture from '../fixtures/activeFixture';
+import {Fixture} from '../objects';
 import {type Direction, components, relative} from '../direction';
 import Duck from '../movable/duck';
 
 const defaultPeriod = 24;
 const speed = 0.5;
 
-export default class Pusher extends ActiveFixture {
+export default class Pusher extends Fixture {
     target: { x: number, y: number };
+    period: number;
+    offset: number;
 
     constructor(x: number, y: number, direction: Direction, offset: number) {
-        super(x, y, direction, defaultPeriod, offset);
+        super(x, y, direction);
+        this.period = defaultPeriod;
+        this.offset = offset;
         const targetOffset = components(this.direction);
         this.target = { x: this.x + targetOffset.x, y: this.y + targetOffset.y };
     }

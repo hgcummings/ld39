@@ -1,12 +1,17 @@
-import ActiveFixture from './activeFixture';
+import {Fixture} from '../objects';
 import {type Direction, components, combine} from '../direction';
 import Duck from '../movable/duck';
 
 const defaultPeriod = 4;
 
-export default class Turntable extends ActiveFixture {
-    constructor(x: number, y: number, direction:Direction, offset: number) {
-        super(x, y, direction, defaultPeriod, offset);
+export default class Turntable extends Fixture {
+    period: number;
+    offset: number;
+
+    constructor(x: number, y: number, direction: Direction, offset: number) {
+        super(x, y, direction);
+        this.period = defaultPeriod;
+        this.offset = offset;
     }
 
     update(model: { level: any, ducks: Array<Duck> }, tickNumber: number) {

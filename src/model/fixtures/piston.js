@@ -14,7 +14,7 @@ export default class Piston extends ActiveFixture {
         this.target = { x: this.x + targetOffset.x, y: this.y + targetOffset.y };
     }
 
-    update(model: { level: any, ducks: Array<Duck> }, tickNumber: number) {
+    update(model: { ducks: Array<Duck> }, tickNumber: number) {
         if (tickNumber % this.period === this.offset) {
             for (let duck of model.ducks) {
                 if (duck.x === this.target.x && duck.y === this.target.y) {

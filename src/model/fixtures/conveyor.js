@@ -1,5 +1,6 @@
 import {type Direction, components, invert} from '../direction';
 import {Fixture} from '../objects';
+import Movable from '../movable/movable';
 
 const conveyor_speed = 0.25;
 
@@ -16,6 +17,15 @@ export default class Conveyor extends Fixture {
         super(x, y, direction);
         this.speed = conveyor_speed;
         updateVelocity(this);
+    }
+
+    update(model: { ducks: Array<Movable> }) {
+        for (let duck of model.ducks) {
+            if (this.x === duck.x && this.y === duck.y) {
+                const move = components(this.direction);
+                duck.moveTo({ x: duck.x + move.x, y: duck.y + move.y }, conveyor_speed);
+            }
+        }
     }
 
     reverse() {

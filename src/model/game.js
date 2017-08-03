@@ -48,6 +48,10 @@ export default (levelId: number) => {
                         }
                     }
 
+                    for (let conveyor of level.fixtures.conveyors) {
+                        conveyor.update(self);
+                    }
+
                     for (let supply of level.fixtures.supplies) {
                         supply.update(self, tickNumber);
                     }

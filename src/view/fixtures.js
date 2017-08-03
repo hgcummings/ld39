@@ -7,7 +7,6 @@ import * as drawConveyor from './graphics/conveyor';
 import Conveyor from '../model/fixtures/conveyor';
 import Checker from '../model/fixtures/checker';
 import {tick} from '../model/game';
-import ActiveFixture from '../model/fixtures/activeFixture';
 import * as drawMould from './graphics/mould';
 import * as drawSpray from './graphics/spray';
 import * as drawPiston from './graphics/piston';
@@ -22,7 +21,9 @@ export const conveyor = (model: Conveyor, gameTime: number) => {
     };
 }
 
-export const turntable = (model: ActiveFixture, gameTime: number) => {
+type Periodic = { period: number, offset: number }
+
+export const turntable = (model: Periodic, gameTime: number) => {
     const relativeTick = Math.round((gameTime * 2 / tick) - (model.offset * 2)) % (model.period * 2);
     switch (relativeTick) {
         case ((model.period * 2) - 1):
@@ -42,7 +43,7 @@ export const pipe = { foreground: drawPipe };
 
 export const chute = { foreground: drawChute };
 
-export const supply = (model:ActiveFixture, gameTime:number) => {
+export const supply = (model:Periodic, gameTime:number) => {
     if (distanceToActiveTick(model, gameTime, -2) <= 4) {
         return { foreground: drawSupplyActive };
     } else {
@@ -50,7 +51,7 @@ export const supply = (model:ActiveFixture, gameTime:number) => {
     }
 };
 
-export const mould = (model:ActiveFixture, gameTime:number) => {
+export const mould = (model:Periodic, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, -1);
     if (distanceToActive < drawMould.activeFrames.length) {
         return { foreground: drawMould.activeFrames[distanceToActive] };
@@ -59,7 +60,7 @@ export const mould = (model:ActiveFixture, gameTime:number) => {
     }
 };
 
-export const spray = (model:ActiveFixture, gameTime:number) => {
+export const spray = (model:Periodic, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, -1);
     if (distanceToActive <= 2) {
         return { foreground: drawSpray.active };
@@ -68,7 +69,7 @@ export const spray = (model:ActiveFixture, gameTime:number) => {
     }
 };
 
-export const piston = (model:ActiveFixture, gameTime:number) => {
+export const piston = (model:Periodic, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, 2);
     if (distanceToActive < drawPiston.activeFrames.length) {
         return { foreground: drawPiston.activeFrames[distanceToActive] };
@@ -77,7 +78,7 @@ export const piston = (model:ActiveFixture, gameTime:number) => {
     }
 };
 
-export const printer = (model:ActiveFixture, gameTime:number) => {
+export const printer = (model:Periodic, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, -1);
     if (distanceToActive < drawPrinter.activeFrames.length) {
         return { foreground: drawPrinter.activeFrames[distanceToActive] };
@@ -99,7 +100,7 @@ export const checker = (model: Checker) => {
 /*
  * Distance to active tick, in half ticks (to allow for a decent framerate)
  */
-const distanceToActiveTick = (model:ActiveFixture, gameTime:number, animationDelay:number) => {
+const distanceToActiveTick = (model:Periodic, gameTime:number, animationDelay:number) => {
     const normalisedCurrentTick = ((gameTime * 2 / tick) - animationDelay) % (model.period * 2);
     return Math.round(Math.min(
         Math.abs(normalisedCurrentTick - 2 * (model.offset)),

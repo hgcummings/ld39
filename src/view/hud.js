@@ -2,7 +2,7 @@ import {duck as drawDuck} from './sprites';
 import Duck from '../model/movable/duck';
 import {unit} from './graphics/common';
 
-const completedDuck = new Duck({conveyors: [], chutes: []}, 0, 0, 0);
+const completedDuck = new Duck(0, 0, 0);
 completedDuck.state.moulded = true;
 completedDuck.state.printed = [true, false, false, false];
 completedDuck.state.sprayed = [true, true, true, true];

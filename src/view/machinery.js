@@ -2,14 +2,14 @@ import {unit} from './graphics/common';
 import drawLever from './graphics/lever';
 import drawChute from './graphics/chute';
 import drawTurntable from './graphics/turntable';
-import {drawPipe, drawSupplyActive, drawSupplyInactive} from './graphics/pipes';
+import {drawPipe, drawOutletActive, drawOutletInactive} from './graphics/pipes';
 import * as drawConveyor from './graphics/conveyor';
 import Conveyor from '../model/fixtures/conveyor';
 import Checker from '../model/fixtures/checker';
 import {tick} from '../model/game';
-import * as drawMould from './graphics/mould';
-import * as drawSpray from './graphics/spray';
-import * as drawPiston from './graphics/piston';
+import * as drawPress from './graphics/press';
+import * as drawPainter from './graphics/painter';
+import * as drawPusher from './graphics/pusher';
 import * as drawPrinter from './graphics/printer';
 import * as drawChecker from './graphics/checker';
 
@@ -43,38 +43,38 @@ export const pipe = { foreground: drawPipe };
 
 export const chute = { foreground: drawChute };
 
-export const supply = (model:Periodic, gameTime:number) => {
+export const outlet = (model:Periodic, gameTime:number) => {
     if (distanceToActiveTick(model, gameTime, -2) <= 4) {
-        return { foreground: drawSupplyActive };
+        return { foreground: drawOutletActive };
     } else {
-        return { foreground: drawSupplyInactive };
+        return { foreground: drawOutletInactive };
     }
 };
 
-export const mould = (model:Periodic, gameTime:number) => {
+export const press = (model:Periodic, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, -1);
-    if (distanceToActive < drawMould.activeFrames.length) {
-        return { foreground: drawMould.activeFrames[distanceToActive] };
+    if (distanceToActive < drawPress.activeFrames.length) {
+        return { foreground: drawPress.activeFrames[distanceToActive] };
     } else {
-        return { foreground: drawMould.inactive };
+        return { foreground: drawPress.inactive };
     }
 };
 
-export const spray = (model:Periodic, gameTime:number) => {
+export const painter = (model:Periodic, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, -1);
     if (distanceToActive <= 2) {
-        return { foreground: drawSpray.active };
+        return { foreground: drawPainter.active };
     } else {
-        return { foreground: drawSpray.inactive };
+        return { foreground: drawPainter.inactive };
     }
 };
 
-export const piston = (model:Periodic, gameTime:number) => {
+export const pusher = (model:Periodic, gameTime:number) => {
     const distanceToActive = distanceToActiveTick(model, gameTime, 2);
-    if (distanceToActive < drawPiston.activeFrames.length) {
-        return { foreground: drawPiston.activeFrames[distanceToActive] };
+    if (distanceToActive < drawPusher.activeFrames.length) {
+        return { foreground: drawPusher.activeFrames[distanceToActive] };
     } else {
-        return { foreground: drawPiston.inactive };
+        return { foreground: drawPusher.inactive };
     }
 };
 

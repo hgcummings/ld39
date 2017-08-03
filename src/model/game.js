@@ -52,24 +52,24 @@ export default (levelId: number) => {
                         conveyor.update(self);
                     }
 
-                    for (let supply of level.fixtures.supplies) {
-                        supply.update(self, tickNumber);
+                    for (let outlet of level.fixtures.outlets) {
+                        outlet.update(self, tickNumber);
                     }
 
-                    for (let mould of level.fixtures.moulds) {
-                        mould.update(self, tickNumber);
+                    for (let press of level.fixtures.presses) {
+                        press.update(self, tickNumber);
                     }
 
-                    for (let spray of level.fixtures.sprays) {
-                        spray.update(self, tickNumber);
+                    for (let painter of level.fixtures.painters) {
+                        painter.update(self, tickNumber);
                     }
 
                     for (let printer of level.fixtures.printers) {
                         printer.update(self, tickNumber);
                     }
 
-                    for (let piston of level.fixtures.pistons) {
-                        piston.update(self, tickNumber);
+                    for (let pusher of level.fixtures.pushers) {
+                        pusher.update(self, tickNumber);
                     }
 
                     for (let turntable of level.fixtures.turntables) {

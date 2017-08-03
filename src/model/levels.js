@@ -4,12 +4,12 @@ import Checker from './fixtures/checker';
 import Chute from './fixtures/chute';
 import Conveyor from './fixtures/conveyor';
 import Lever from './fixtures/lever';
-import Mould, {DummyMould} from './fixtures/mould';
+import Press, {DummyPress} from './fixtures/press';
+import Outlet from './fixtures/outlet';
 import Pipe from './fixtures/pipe';
-import Piston from './fixtures/piston';
-import Printer from './fixtures/printer';
-import Spray from './fixtures/spray';
-import Supply from './fixtures/supply';
+import Pusher from './movable/pusher';
+import Printer from './movable/printer';
+import Painter from './movable/painter';
 import Turntable from './fixtures/turntable';
 import {type Point} from './geometry';
 import {type Direction, components, invert} from './direction';
@@ -28,12 +28,12 @@ export default allData.split('META:').filter(levelData => levelData !== '').map(
         chutes: [],
         conveyors: [],
         levers: [],
-        moulds: [],
+        outlets: [],
+        painters: [],
         pipes: [],
-        pistons: [],
-        sprays: [],
+        presses: [],
         printers: [],
-        supplies: [],
+        pushers: [],
         turntables: [],
         fixed: []
     };
@@ -64,27 +64,27 @@ export default allData.split('META:').filter(levelData => levelData !== '').map(
                 numberedConveyors[index] = numberedConveyors[index] || [];
                 fixtures.levers.push(new Lever(i, j, a === '/' ? 1 : 3, numberedConveyors[index]));
             } else if (a === 'M') {
-                fixtures.moulds.push(new Mould(i, j, directionOf(b), parseInt(c, 10)));
+                fixtures.presses.push(new Press(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'm') {
-                fixtures.moulds.push(new DummyMould(i, j, directionOf(b), parseInt(c, 10)));
+                fixtures.presses.push(new DummyPress(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'u') {
                 fixtures.pipes.push(new Pipe(i, j, 2));
             } else if (a === 'T') {
-                fixtures.pistons.push(new Piston(i, j, directionOf(b), parseInt(c, 10)));
+                fixtures.pushers.push(new Pusher(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'S') {
-                fixtures.sprays.push(new Spray(i, j, directionOf(b), parseInt(c, 10)));
+                fixtures.painters.push(new Painter(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 's') {
                 fixtures.printers.push(new Printer(i, j, directionOf(b), parseInt(c, 10)));
             } else if (a === 'U') {
                 fixtures.pipes.push(new Pipe(i, j, 2));
-                fixtures.supplies.push(new Supply(i, j + 1, 2, parseInt(c, 10)));
+                fixtures.outlets.push(new Outlet(i, j + 1, 2, parseInt(c, 10)));
             } else if (a === '@') {
                 fixtures.turntables.push(new Turntable(i, j, b === 'r' ? 1 : 3, parseInt(c, 10)));
             }
         }
     }
     
-    fixtures.fixed = [].concat(fixtures.chutes, fixtures.moulds, fixtures.checkers);
+    fixtures.fixed = [].concat(fixtures.chutes, fixtures.presses, fixtures.checkers);
 
     return {
         start: start,

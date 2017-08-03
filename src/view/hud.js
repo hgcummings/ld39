@@ -3,9 +3,9 @@ import Duck from '../model/movable/duck';
 import {unit} from './graphics/common';
 
 const completedDuck = new Duck(0, 0, 0);
-completedDuck.state.moulded = true;
+completedDuck.state.pressed = true;
+completedDuck.state.painted = [true, true, true, true];
 completedDuck.state.printed = [true, false, false, false];
-completedDuck.state.sprayed = [true, true, true, true];
 
 export default () => {
     const wrapper = document.createElement('div');

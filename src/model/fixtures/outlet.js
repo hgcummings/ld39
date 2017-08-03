@@ -4,7 +4,7 @@ import Duck from '../movable/duck';
 
 const defaultPeriod = 24;
 
-export default class Supply extends ActiveFixture {
+export default class Outlet extends ActiveFixture {
     constructor(x: number, y: number, direction: Direction, offset: number) {
         super(x, y, direction, defaultPeriod, offset);
     }

@@ -13,7 +13,7 @@ export const drawPipe = preRender((ctx: CanvasRenderingContext2D) => {
     ctx.fillRect(-unit/4, -unit/2, unit/2, unit);
 });
 
-const drawSupply = (active: boolean) => preRender((ctx:CanvasRenderingContext2D) => {
+const drawOutlet = (active: boolean) => preRender((ctx:CanvasRenderingContext2D) => {
     const outerGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, unit / 2);
     outerGradient.addColorStop(0, '#333');
     outerGradient.addColorStop(1, '#ccc');
@@ -32,5 +32,5 @@ const drawSupply = (active: boolean) => preRender((ctx:CanvasRenderingContext2D)
     ctx.fillRect(-unit/4, 0, unit/2, unit/2);
 });
 
-export const drawSupplyActive = drawSupply(true);
-export const drawSupplyInactive = drawSupply(false);
+export const drawOutletActive = drawOutlet(true);
+export const drawOutletInactive = drawOutlet(false);

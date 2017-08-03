@@ -5,7 +5,7 @@ import {type Body} from '../geometry';
 
 const defaultPeriod = 24;
 
-export default class Mould extends ActiveFixture {
+export default class Press extends ActiveFixture {
     target: { x: number, y: number };
     body: Body;
 
@@ -25,7 +25,7 @@ export default class Mould extends ActiveFixture {
         if (tickNumber % this.period === this.offset) {
             for (let duck of model.ducks) {
                 if (duck.x === this.target.x && duck.y === this.target.y) {
-                    duck.state.moulded = true;
+                    duck.state.pressed = true;
                     duck.direction = increment(this.direction);
                 }
             }
@@ -33,7 +33,7 @@ export default class Mould extends ActiveFixture {
     }
 };
 
-export class DummyMould extends ActiveFixture {
+export class DummyPress extends ActiveFixture {
     body: Body;
     
     constructor(x: number, y: number, direction: Direction, offset: number) {

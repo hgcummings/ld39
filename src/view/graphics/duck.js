@@ -3,7 +3,7 @@ import {unit, drawCircle, drawGradientCircle, preRender, preRenderCell} from './
 const unpaintedPallete = ['#ddd', '#ccc', '#bbb', '#999'];
 const paintedPallete = ['#ee6', '#dd5', '#cc5', '#aa4'];
 
-const drawMoulded = (pallete: Array<string>) => preRenderCell((ctx: CanvasRenderingContext2D) => {
+const drawPressed = (pallete: Array<string>) => preRenderCell((ctx: CanvasRenderingContext2D) => {
     const gradient = ctx.createRadialGradient(0, unit / 3, 0, 0, unit / 3, unit);
     gradient.addColorStop(0, pallete[0]);
     gradient.addColorStop(1/6, pallete[2]);
@@ -26,10 +26,10 @@ const drawMoulded = (pallete: Array<string>) => preRenderCell((ctx: CanvasRender
     ctx.fill();
 })
 
-export const drawUnpainted = drawMoulded(unpaintedPallete);
-export const drawPainted = drawMoulded(paintedPallete);
+export const drawUnpainted = drawPressed(unpaintedPallete);
+export const drawPainted = drawPressed(paintedPallete);
 
-const drawUnmoulded = (pallete:Array<string>) => preRenderCell((ctx: CanvasRenderingContext2D) => {
+const drawUnpressed = (pallete:Array<string>) => preRenderCell((ctx: CanvasRenderingContext2D) => {
     drawGradientCircle(ctx, unit / 12, unit / 12, unit / 4, pallete[2], pallete[3]);
     drawGradientCircle(ctx, -unit / 6, -unit / 6, unit / 8, pallete[2], pallete[3]);
     drawGradientCircle(ctx, unit / 6, -unit / 12, unit / 8, pallete[2], pallete[3]);
@@ -37,8 +37,8 @@ const drawUnmoulded = (pallete:Array<string>) => preRenderCell((ctx: CanvasRende
     drawGradientCircle(ctx, -unit / 6, unit / 12, unit / 8, pallete[2], pallete[3]);
     drawGradientCircle(ctx, -unit / 8, -unit / 24, unit / 6, pallete[2], pallete[3]);
 });
-export const drawUnmouldedUnpainted = drawUnmoulded(unpaintedPallete);
-export const drawUnmouldedPainted = drawUnmoulded(paintedPallete);
+export const drawUnpressedUnpainted = drawUnpressed(unpaintedPallete);
+export const drawUnpressedPainted = drawUnpressed(paintedPallete);
 
 export const drawPrinting = preRender((ctx: CanvasRenderingContext2D) => {
     ctx.fillStyle = '#e70';

@@ -35,20 +35,20 @@ const drawCell = (cell:HTMLCanvasElement) =>
 
 export const duck = (model: Duck, gameTime: number) => {
     let {drawUnpainted, drawPainted} = drawDuck;
-    if (!model.state.moulded) {
-        [drawPainted, drawUnpainted] = [drawDuck.drawUnmouldedPainted, drawDuck.drawUnmouldedUnpainted];
+    if (!model.state.pressed) {
+        [drawPainted, drawUnpainted] = [drawDuck.drawUnpressedPainted, drawDuck.drawUnpressedUnpainted];
     }
     let body;
 
-    if (isComplete(model.state.sprayed)) {
+    if (isComplete(model.state.painted)) {
         body = drawCell(drawPainted);
-    } else if (!model.state.sprayed.some(val => val)) {
+    } else if (!model.state.painted.some(val => val)) {
         body = drawCell(drawUnpainted);
     } else {
         body = (ctx: CanvasRenderingContext2D) => {
             drawCell(drawUnpainted)(ctx);
             for (let d = 0; d < 4; ++d) {
-                if (model.state.sprayed[d]) {
+                if (model.state.painted[d]) {
                     const x = d === 1 ? 0 : -unit / 2;
                     const y = d === 2 ? 0 : -unit / 2;
                     const w = d % 2 === 0 ? unit : unit / 2;

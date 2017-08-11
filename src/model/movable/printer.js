@@ -26,4 +26,14 @@ export default class Printer extends Fixture {
             }
         }
     }
+
+    body() {
+        const bodyOffset = components(this.direction);
+        return {
+            x: this.x + bodyOffset.x * 3/16,
+            y: this.y + bodyOffset.y * 3/16,
+            width: this.direction % 2 === 0 ? 0.75 : 0.625,
+            height: this.direction % 2 === 0 ? 0.625 : 0.75
+        }
+    }
 }

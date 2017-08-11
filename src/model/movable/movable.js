@@ -1,6 +1,6 @@
 import {type Sprite} from '../objects';
 import {type Direction, components} from '../direction';
-import {type Point} from '../geometry';
+import {type Point, type Body} from '../geometry';
 
 export default class Movable implements Sprite {
     x: number;
@@ -37,5 +37,9 @@ export default class Movable implements Sprite {
             this.vx = 0;
             this.vy = 0;
         }
+    }
+
+    body(): ?Body {
+        return null;
     }
 }

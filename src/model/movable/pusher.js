@@ -29,4 +29,13 @@ export default class Pusher extends Fixture {
             }
         }
     }
+
+    body() {
+        return {
+            x: this.x,
+            y: this.y,
+            width: this.direction % 2 === 0 ? 0.67 : 1,
+            height: this.direction % 2 === 0 ? 1 : 0.67
+        }
+    }
 }

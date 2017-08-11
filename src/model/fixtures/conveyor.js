@@ -19,11 +19,11 @@ export default class Conveyor extends Fixture {
         updateVelocity(this);
     }
 
-    update(model: { ducks: Array<Movable> }) {
-        for (let duck of model.ducks) {
-            if (this.x === duck.x && this.y === duck.y) {
+    update(model: { movables(): () => Iterable<Movable> }) {
+        for (let movable of model.movable()) {
+            if (this.x === movable.x && this.y === movable.y) {
                 const move = components(this.direction);
-                duck.moveTo({ x: duck.x + move.x, y: duck.y + move.y }, conveyor_speed);
+                movable.moveTo({ x: movable.x + move.x, y: movable.y + move.y }, conveyor_speed);
             }
         }
     }

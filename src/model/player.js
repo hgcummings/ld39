@@ -3,26 +3,34 @@ import {type Direction, components} from './direction';
 import {overlap, constrain, distance, type Body, circleBodies} from './geometry';
 import Conveyor from './fixtures/conveyor';
 import {type Fixture} from './objects';
+import type Movable from './movable/movable';
 import {tickFrequency} from './game';
 
 export const radius = 3/8;
 
-export default (level: {start: Fixture, machinery: { conveyors: Array<Conveyor>, fixed: Array<{ body:Body }> }, width: number, height: number}) => {
+export default (start: Fixture) => {
     const move_speed = 0.375;
     const move_power = 0.625;
     const idle_power = 0.0625;
-    const levelBoundary = { x: level.width - 1, y: level.height - 1 };
 
     const self = {
-        x: level.start.x,
-        y: level.start.y,
+        x: start.x,
+        y: start.y,
         vx: 0,
         vy: 0,
         lastUpdate: 0,
-        direction: level.start.direction,
+        direction: start.direction,
         power: 100,
         active: false,
-        update: (gameTime: number) => {
+        update: (model: {
+                    level: {
+                        machinery: {
+                            conveyors: Array<Conveyor>,
+                            fixed: Array<{ body:Body }>,
+                            movable: () => Iterable<Movable>
+                        }, width: number, height: number
+                    }
+                }, gameTime: number) => {
             const direction = getDirection();
             const dt = gameTime - self.lastUpdate;
             self.lastUpdate = gameTime;
@@ -40,7 +48,7 @@ export default (level: {start: Fixture, machinery: { conveyors: Array<Conveyor>,
                 self.active = false;
             }
 
-            for (let conveyor of level.machinery.conveyors) {
+            for (let conveyor of model.level.machinery.conveyors) {
                 if (overlap(self, conveyor)) {
                     self.vx += conveyor.velocity.x * dt * tickFrequency;
                     self.vy += conveyor.velocity.y * dt * tickFrequency;
@@ -51,18 +59,41 @@ export default (level: {start: Fixture, machinery: { conveyors: Array<Conveyor>,
             self.x += self.vx;
             self.y += self.vy;
 
+            let collided = false;
             for (let body of circleBodies(self.x, self.y, radius)) {
-                for (let fixed of level.machinery.fixed) {
+                for (let fixed of model.level.machinery.fixed) {
                     const dist = distance(body, fixed.body);
                     if (dist.x < 0 && dist.y < 0) {
                         self.x += Math.max(dist.x, -1 * Math.abs(self.vx)) * Math.sign(self.vx);
                         self.y += Math.max(dist.y, -1 * Math.abs(self.vy)) * Math.sign(self.vy);
+                        collided = true;
                         break;
                     }
                 }
+
+                if (collided) {
+                    break;
+                }
+
+                for (let movable of model.level.machinery.movable()) {
+                    const movableBody = movable.body();
+                    if (movableBody) {
+                        const dist = distance(body, movableBody);
+                        if (dist.x < 0 && dist.y < 0) {
+                            self.x += Math.max(dist.x, -1 * Math.abs(self.vx)) * Math.sign(self.vx);
+                            self.y += Math.max(dist.y, -1 * Math.abs(self.vy)) * Math.sign(self.vy);
+                            collided = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (collided) {
+                    break;
+                }
             }
 
-            constrain(self, levelBoundary);
+            constrain(self, { x: model.level.width - 1, y: model.level.height - 1 });
         }
     };
 

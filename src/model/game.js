@@ -1,6 +1,7 @@
 import levels from './levels';
 import initPlayerModel from './player';
 import Duck from './movable/duck';
+import {allOf} from '../util';
 
 export const tick = 125;
 export const tickFrequency = 0.008;
@@ -10,12 +11,13 @@ export default (levelId: number) => {
     let lastUpdate = 0;
     const self = {
         level: level,
-        player: initPlayerModel(level),
+        player: initPlayerModel(level.start),
         ducks: [],
         score: 0,
         over: false,
+        movable: () => allOf(self.ducks, self.level.machinery.movable()),
         update: (gameTime: number) => {
-            self.player.update(gameTime);
+            self.player.update(self, gameTime);
 
             if (self.player.power <= 0) {
                 self.over = true;

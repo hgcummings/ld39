@@ -26,4 +26,13 @@ export default class Painter extends Fixture {
             }
         }
     }
+
+    body() {
+        return {
+            x: this.x,
+            y: this.y,
+            width: 0.67,
+            height: 0.67
+        }
+    }
 }
